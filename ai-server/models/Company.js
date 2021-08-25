@@ -1,36 +1,35 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
+const { FileSchema, CreatorDeatilSchema } = require("./BaseSchema");
 
-const companySchema = new mongoose.Schema({
+const companySchema = new mongoose.Schema(
+  {
+    company_name: {
+      type: String,
+      required: true,
+    },
 
-                    company_name: {
-                        type: String,
-                        required: true
-                    },
-                    company_user : {
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'User'
-                    },
-                    test:{
-                        type: mongoose.Schema.Types.ObjectId,
-                        ref: 'Test'
+    description: {
+      type: String,
+      trim: true,
+    },
+    address: {
+      type: String,
+      trim: true,
+    },
+    url: [FileSchema],
+    creator: {
+      type: CreatorDeatilSchema,
+      required: true,
+    },
+    is_active: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-                    },
-                    description:{
-                        type: String,
-                        default: ""
-                    },
-                    url:{
-                        type: String,
-                        default:""
-                        
-                    },
-                    user_apply:[
-                        {
-                            type: mongoose.Schema.Types.ObjectId,
-                            ref: 'User'
-                        }
-                    ]
-})
-
-const Company = mongoose.model('Company', companySchema);
+const Company = mongoose.model("Company", companySchema);
 module.exports = Company;
