@@ -3,22 +3,24 @@ const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
-      type: String,
-      unique: true,
-      required: true,
-    },
     email: {
       type: String,
       unique: true,
+      required: true,
     },
     password: {
       type: String,
       required: true,
     },
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     resume: {
       type: String,
       default: "",
+      trim: true,
     },
     is_admin: {
       type: Boolean,
@@ -42,6 +44,10 @@ const userSchema = new mongoose.Schema(
         ref: "UserScore",
       },
     ],
+    is_active: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
