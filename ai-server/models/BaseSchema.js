@@ -13,6 +13,16 @@ const UserDeatilSchema = new mongoose.Schema({
 
 const CreatorDeatilSchema = UserDeatilSchema;
 
+const CompanyDeatilSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  name: {
+    type: String,
+  },
+});
+
 const FileSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -34,4 +44,5 @@ const FileSchema = new mongoose.Schema({
 module.exports = {
   FileSchema,
   CreatorDeatilSchema,
+  CompanyDeatilSchema,
 };

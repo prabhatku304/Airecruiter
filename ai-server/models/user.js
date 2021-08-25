@@ -34,16 +34,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
-    company: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Company",
-    },
-    user_score: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "UserScore",
-      },
-    ],
     is_active: {
       type: Boolean,
       default: false,
