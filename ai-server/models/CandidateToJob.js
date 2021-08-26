@@ -1,4 +1,4 @@
-const mongoose = serviceLocator.get("mongoose");
+const mongoose = require('mongoose');
 
 const CandidateToJobSchema = new mongoose.Schema(
   {
