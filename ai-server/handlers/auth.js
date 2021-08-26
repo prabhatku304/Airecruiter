@@ -58,6 +58,18 @@ exports.UserLogin = async (req, res, next) => {
   }
 };
 
+exports.getUser = async (req, res, next) => {
+  try {
+    let user = await decodeToken(req);
+    user = await db.User.findById(user._id);
+    res.send(user);
+  } catch (err) {
+    return next({
+      status: 401,
+      message: err.message,
+    });
+  }
+};
 exports.UserData = async (req, res, next) => {
   try {
     let user = await db.User.findById(req.params.id);

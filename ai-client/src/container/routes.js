@@ -31,7 +31,7 @@ const RouterContents = (props)=>{
             <Route exact path="/company" component={CompanyHomePage} />
             <Route exact path="/test" component={PageSpinner} />
 
-                {props.admin.is_admin ? (
+                {/* {props.admin.is_admin ? (
                     <>
                     <Route exact path="/company/upload/question" component={CompanyQuestionPage} />
                 <Route exact path="/user/:id/test" component={McqTestPage} />
@@ -40,7 +40,7 @@ const RouterContents = (props)=>{
                 <Route exact path="/company/leaderboard" component={CompanyLeaderPage} />
                 <Route exact path="/candidate/profile/:id" component={CandidateScorePage} />
                 </>
-                ):(
+                ):( */}
                     <>
                 <Route exact path="/register" component={RegisterPage} />
                 <Route exact path='/profile' component={UserProfilePage} />
@@ -55,8 +55,8 @@ const RouterContents = (props)=>{
                 <Route exact path="/user/interview/:user_id/:c_id" component={InterviewTestPage} />
                 
                     </>
-
-                )}
+{/* 
+                )} */}
             </Switch>
         </Router>
     )

@@ -1,10 +1,10 @@
-import {combineReducers} from 'redux'
-import {UserReducer} from './user'
-import { UserTest } from './userTest'
+import { combineReducers } from "redux";
+import { UserTest } from "./userTest";
+import { userReducer } from "./user";
 
 const reducer = combineReducers({
-            user : UserReducer,
-            test: UserTest
-})
+  user: userReducer,
+  test: UserTest,
+});
 
-export default reducer
+export default reducer;

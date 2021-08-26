@@ -7,20 +7,14 @@ const express = require("express"),
     UserProfile,
     UserProfileRequest,
     UserData,
+    getUser
   } = require("../handlers/auth"),
   { UserRegisteredCompany } = require("../handlers/company"),
   { UserTestScore, UserTestStatus } = require("../handlers/score");
 
 router.post("/user/register", UserRegister);
 router.post("/user/login", UserLogin);
-router.get("/user", async (req, res, next) => {
-  try {
-    let user = await db.User.find({});
-    res.send(user);
-  } catch (err) {
-    return next(err);
-  }
-});
+router.get("/user", getUser);
 
 router.get("/user/:id", UserData);
 router.get("/user/:user_id/test/:c_id/status", UserTestStatus);

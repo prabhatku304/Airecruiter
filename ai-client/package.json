@@ -12,6 +12,7 @@
     "history": "^5.0.0",
     "http-proxy-middleware": "^1.0.4",
     "jwt-decode": "^2.2.0",
+    "query-string": "^7.0.1",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
