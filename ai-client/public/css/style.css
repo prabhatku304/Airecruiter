@@ -1,0 +1,351 @@
+body{
+    user-select: none;
+}
+.upload-image{
+    overflow: hidden;
+    border-radius: 50px;
+    opacity: 0.8;
+   
+}
+.upload-image img{
+     box-shadow: 3px 10px rgba(27,27,27,0.6)
+}
+.upload-image:hover{
+    transform: scale(1.1)
+    
+}
+.border_{
+    border: 3px dotted blue;
+}
+
+.text-slide{
+
+    animation: slide 3s forwards 0s linear
+}
+
+@keyframes slide{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        transform: translateY(10px);
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+nav{
+    height: 60px;
+    background-color: white;
+    box-shadow: -2px -2px 8px 0px black;
+    background-color: rgba(12,31,76,0.7);
+
+}
+/* nav .content{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+    top:12px
+} */
+nav .drop{
+    float: right;
+    display: flex;
+    position: absolute;
+    right: 0;
+    top:10px;
+}
+
+.nav-content{
+    display: flex;
+    position: absolute;
+    top:15px;
+    left:40%;
+}
+.nav-content .flex{
+    display: inline;
+    display: flex;
+    
+    
+}
+.nav-content a{
+    color: rgb(255,255,255);
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.main-page{
+    background-image: url('../image/home-2.jpg');
+   height: 650px;
+  max-width: 100%;
+
+}
+.profile-text{
+    color: blue;
+    font-weight: bold
+}
+.card{
+    box-shadow: 0px 2px 14px 0px #00000059;
+
+}
+
+.update-btn{
+    align-content: center;
+    display: flex;
+    justify-content:center
+   
+}
+.update-btn button{
+    color: white;
+    font-weight: bold;
+    background-color: blue;
+    height: 50px;
+    width: 200px
+    
+}
+
+button:hover {
+    background-color: white;
+    transition: all 0.6s ease-in-out;
+    
+  
+}
+.update-btn button:hover{
+    color: blue
+}
+.img-register h3{
+    position: absolute;
+    top:45%;
+    left:0;
+    right: 0;
+    bottom: 0;
+    letter-spacing: 1px
+    
+}
+.title{
+    position: relative;
+    top:15%;
+    border-radius: 10px;
+    overflow: hidden
+}
+
+
+
+.answer{
+    display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      margin-top:50px
+  }
+
+  .inner-card{
+    border: 10px solid rgba(10,11,36,0.38);
+    height: 650px;
+    position: relative;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+
+    box-shadow: inset 0px -1px 6px 2px #0000009c;
+    overflow: auto;
+    
+}
+.question{
+    height:500px;
+    position:relative;
+    top:20px;
+    left:0;
+    border-radius: 3px;
+    padding: 8px;
+    max-height: 100%;
+    padding: 200px;
+    background-color: rgba(142,152,198,0.79)
+}
+.question p{
+    
+    font-size: 40px;
+    font-weight: normal;
+    letter-spacing: 1px
+}
+.webcam{
+    height:250px;
+    width:500px;
+    position: relative;
+    top:10px;
+    border-radius: 5px;
+}
+.webcam-btn{
+    position: fixed;
+    bottom: 10px;
+    left:150px;
+}
+.timer{
+    float: right;
+    color: blue;
+    font-weight: bold;
+}
+.company-list{
+    display: flex;
+
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: relative;
+    top:100px;
+    
+}
+.title-image{
+    overflow: hidden;
+    height: 200px
+}
+
+.apply-btn{
+    background-color: rgba(47,84,183,0.74);
+    overflow: hidden;
+    border-radius: 3px;
+    width: 50%;
+   }
+   .apply-btn button{
+      color: white;
+       font-weight: bold;
+       letter-spacing: 0.7px;
+       padding-left:50px;
+       
+   }
+   .apply-btn:hover{
+       background-color: blue;
+   }
+   .apply-btn button:hover{
+       color:blue
+   }
+   .company-title{
+    position: absolute;
+    top:25%;
+    left:17%;
+    bottom: 0;
+    
+}
+.company-title span{
+    font-weight: normal;
+    font-size: 50px;
+}
+
+.typist-title{
+    animation: blinker 5s linear forwards;
+}
+
+@keyframes blinker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.8; }
+    100% { opacity: 1.0; }
+  }
+
+
+  .drop-btn{
+    border: none;
+    font-size: 20px;
+    background-color: #585A80;
+    opacity: 0.8;
+    width: 160px;
+    padding: 5px;
+    border-radius: 1px;
+    color: black;
+
+}
+.drop-down{
+    position: relative;
+    display: inline-block
+}
+.dropdown-content{
+     display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+.drop-down-content a:hover {background-color: #f1f1f1}
+.drop-down:hover .dropdown-content {
+  display: block;
+}
+
+.drop-down:hover .drop-btn {
+  background-color: #7078a2;;
+}
+.company-img img{
+    width: 100%;
+    height: 200px;
+}
+.q-input{
+    display: flex;
+    justify-content: space-between
+}
+.test-container{
+    position: relative;
+      top:200px;
+  }
+  .q-option{
+    height: 40px;
+      width:40px;
+  }
+
+  .footer{
+    height: 400px;
+    width: 100%;
+    padding: 100px;
+    background-color: #383e56;
+    font-family:\u5B8B\u4F53,serif;
+    box-shadow: 0px 0px 3px 0px #766a6a;
+    position: relative;
+    top:200px;
+
+
+}
+.candidate-list{
+
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+    top: 100px;
+    background-color: #e4e3e3;
+    height: 100px;
+}
+.u-icon{
+    text-shadow: 2px 2px 4px #000000;
+    color: lightblue;
+    font-size: 50px;
+}
+.l-icon{
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    font-size: 20px;
+}
+
+.user-text{
+    font-size:20px;
+font-family:\u5FAE\u8F6F\u96C5\u9ED1,\u9ED1\u4F53,sans-serif;
+color:rgb(90, 90, 115);
+font-weight: bold;
+}
+.s-btn{
+    position: relative;
+    bottom: 0px;
+    display: flex;
+    justify-content: space-between;
+    top:20px;
+}
+.s-btn button{
+    font-weight: bold;
+    font-size: 20px;
+}
+.s-btn button:hover{
+    background-color: white;
+    color: blue
+}
