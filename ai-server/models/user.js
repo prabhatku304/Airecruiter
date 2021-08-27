@@ -33,6 +33,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "",
     },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
     token: {
       type: String,
       trim: true,

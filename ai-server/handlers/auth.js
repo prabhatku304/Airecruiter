@@ -14,6 +14,7 @@ exports.UserRegister = async (req, res, next) => {
         name: user.name,
       };
       let company = await db.Company.create(body);
+      user.company = company._id;
     }
     // let tempProfile = await db.UserProfile.create({ user: user._id });
     // user.profile = tempProfile._id;
@@ -21,6 +22,7 @@ exports.UserRegister = async (req, res, next) => {
 
     let token = await signToken(user);
     user.token = token;
+    await user.save();
     return res.status(200).json(user);
   } catch (err) {
     return next({

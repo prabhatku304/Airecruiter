@@ -20,7 +20,7 @@ import { connect, useDispatch } from "react-redux";
 import { CompanyLeaderPage } from "../component/CompanyPage/CompanyLeaderPage/CompanyLeaderPage";
 import { CandidateScorePage } from "../component/CompanyPage/CandidateScorePage/CandidateScorePage";
 import { PageSpinner } from "../component/UserProfile/PageSpinner";
-import { companyJobRoute } from "./route";
+import { companyJobRoute, companyJobDetailRoute } from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
 
@@ -70,6 +70,11 @@ const RouterContents = (props) => {
             component={InterviewTestPage}
           />
           <Route exact path={companyJobRoute()} component={CompanyJobPage} />
+          <Route
+            exact
+            path={companyJobDetailRoute(false)}
+            component={CompanyJobPage}
+          />
         </>
         {/* 
                 )} */}
