@@ -4,5 +4,7 @@ const createUserApiRoute = () => {
 const loginUserApiRoute = () => {
   return "/user/login";
 };
-
-export { createUserApiRoute, loginUserApiRoute };
+const getUserApiRoute = () => {
+  return "/user";
+};
+export { createUserApiRoute, loginUserApiRoute, getUserApiRoute };
