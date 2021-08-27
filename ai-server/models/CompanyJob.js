@@ -13,7 +13,7 @@ const companyJobSchema = new mongoose.Schema(
       trim: true,
     },
 
-    description: {
+    job_description: {
       type: String,
       trim: true,
     },
@@ -24,7 +24,8 @@ const companyJobSchema = new mongoose.Schema(
     url: [FileSchema],
 
     company: {
-      type: CompanyDeatilSchema,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
       required: true,
     },
 

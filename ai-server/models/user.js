@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: true,
       trim: true,
     },
     resume: {
@@ -33,6 +32,14 @@ const userSchema = new mongoose.Schema(
     user_type: {
       type: String,
       default: "",
+    },
+    company: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Company",
+    },
+    token: {
+      type: String,
+      trim: true,
     },
     is_active: {
       type: Boolean,
