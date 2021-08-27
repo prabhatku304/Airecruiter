@@ -1,9 +1,15 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { companyJobDetailRoute } from "../../../container/route";
 
 const CompanyJobCard = ({ data }) => {
+  const history = useHistory();
+  const onChangeCompanyJobRoute = () => {
+    history.push(companyJobDetailRoute(true, data._id));
+  };
   return (
     <div className="">
-      <div className="card">
+      <div className="card cursor-pointer" onClick={onChangeCompanyJobRoute}>
         <img
           className="card-img-top"
           src="img-fluid h-100 w-100"

@@ -23,6 +23,7 @@ import { PageSpinner } from "../component/UserProfile/PageSpinner";
 import { companyJobRoute, companyJobDetailRoute } from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
+import CompanyJobDetailPage from "../component/CompanyPage/CompanyJobDetailPage/CompanyJobDetailPage";
 
 const RouterContents = (props) => {
   const dispatch = useDispatch();
@@ -73,7 +74,7 @@ const RouterContents = (props) => {
           <Route
             exact
             path={companyJobDetailRoute(false)}
-            component={CompanyJobPage}
+            component={CompanyJobDetailPage}
           />
         </>
         {/* 
