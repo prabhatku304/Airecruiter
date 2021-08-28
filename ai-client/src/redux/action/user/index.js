@@ -15,6 +15,8 @@ import {
   USER_PROFILE_GET_PENDING,
   USER_PROFILE,
   USER_PROFILE_UPDATE_PENDING,
+  USER_GET_PENDING,
+  USER_LOGOUT,
 } from "./type";
 
 const userRegisterAction = (data) => {
@@ -53,15 +55,15 @@ const userLoginAction = (data) => {
 const userGetAction = () => {
   const url = getUserApiRoute();
   return (dispatch) => {
-    dispatch(reduxPayload(USER_LOGIN_PENDING, true));
+    dispatch(reduxPayload(USER_GET_PENDING, true));
     apiClient({ method: "GET", url: url })
       .then((res) => {
         localStorage.setItem("jwtToken", res.data.token);
         dispatch(reduxPayload(USER_LOGIN, res.data));
-        dispatch(reduxPayload(USER_LOGIN_PENDING, false));
+        dispatch(reduxPayload(USER_GET_PENDING, false));
       })
       .catch((err) => {
-        dispatch(reduxPayload(USER_LOGIN_PENDING, false));
+        dispatch(reduxPayload(USER_GET_PENDING, false));
       });
   };
 };
@@ -96,8 +98,12 @@ const userProfileUpdateAction = (data, callback) => {
       });
   };
 };
-const userLogoutAction = async () => {
-  await localStorage.clear();
+
+const userLogoutAction = () => {
+  return (dispatch) => {
+    localStorage.clear();
+    dispatch(reduxPayload(USER_LOGOUT));
+  };
 };
 export {
   userLoginAction,

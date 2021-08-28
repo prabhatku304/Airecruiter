@@ -58,7 +58,6 @@ nav .drop{
 
 .nav-content{
     display: flex;
-    position: absolute;
     top:15px;
     left:40%;
 }
@@ -69,7 +68,6 @@ nav .drop{
     
 }
 .nav-content a{
-    color: rgb(255,255,255);
     font-size: 17px;
     font-weight: bold;
 }

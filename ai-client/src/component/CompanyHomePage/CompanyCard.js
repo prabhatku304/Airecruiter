@@ -1,12 +1,23 @@
 import React from "react";
+import { useHistory } from "react-router";
+import { jobDetailRoute } from "../../container/route";
 
 const CompanyCard = (props) => {
+  const history = useHistory();
+  const onChangeJobDetailRoute = (jobId) => {
+    if (jobId) {
+      history.push(jobDetailRoute(true, jobId));
+    }
+  };
   return (
     <div className="row">
       {props.data &&
         props.data.map((res) => (
           <div className="col-4">
-            <div className="card">
+            <div
+              className="card cursor-pointer"
+              onClick={() => onChangeJobDetailRoute(res._id)}
+            >
               <div className="title-image">
                 <img
                   style={{ width: 300, height: 200 }}
@@ -29,7 +40,7 @@ const CompanyCard = (props) => {
                   <button
                     className="btn"
                     onClick={() => {
-                      props.onApply(res._id);
+                      onChangeJobDetailRoute(res._id);
                     }}
                   >
                     Apply

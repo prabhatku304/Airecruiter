@@ -6,6 +6,7 @@ import {
   USER_ERROR,
   USER_PROFILE,
   USER_PROFILE_GET_PENDING,
+  USER_GET_PENDING,
 } from "../action/user/type";
 import { RESUME_UPLOAD_PENDING } from "../action/resume/type";
 
@@ -14,6 +15,7 @@ const DEFAULT_STATE = {
   userProfile: null,
   isAuthenticated: null,
   isProfileGetPending: null,
+  isUserGetPending: null,
   isPendingRegister: false,
   isPendingLogin: false,
   isResumeUploadPending: false,
@@ -41,6 +43,11 @@ export const userReducer = (
         ...state,
         user: null,
         isAuthenticated: null,
+      };
+    case USER_GET_PENDING:
+      return {
+        ...state,
+        isUserGetPending: payload,
       };
     case USER_PROFILE_GET_PENDING:
       return {
