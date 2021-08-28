@@ -1,7 +1,5 @@
 import React from 'react';
 
-
-
 const CompanyCard = (props)=>{
     const IsUserRegistered = (c_id)=>{
         console.log(c_id)

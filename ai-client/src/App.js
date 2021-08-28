@@ -5,6 +5,7 @@ import { rootStore } from "./redux";
 
 import { NavBar } from "./container/NavBar/Navbar";
 import { Footer } from "./container/Footer/Footer";
+import PersonalityTest from "./component/PersonalityTest";
 const store = rootStore();
 
 function App() {

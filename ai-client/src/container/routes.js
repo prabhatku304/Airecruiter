@@ -24,6 +24,7 @@ import { companyJobRoute, companyJobDetailRoute } from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
 import CompanyJobDetailPage from "../component/CompanyPage/CompanyJobDetailPage/CompanyJobDetailPage";
+import PersonalityTest from "../component/PersonalityTest";
 
 const RouterContents = (props) => {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ const RouterContents = (props) => {
         <Route exact path="/" component={Homepage} />
         <Route exact path="/company" component={CompanyHomePage} />
         <Route exact path="/test" component={PageSpinner} />
-
+        <Route exact path="/personalityTest" component={PersonalityTest} />
         {/* {props.admin.is_admin ? (
                     <>
                     <Route exact path="/company/upload/question" component={CompanyQuestionPage} />

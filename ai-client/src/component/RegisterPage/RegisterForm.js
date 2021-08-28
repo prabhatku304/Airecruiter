@@ -13,8 +13,6 @@ class RegisterForm extends React.Component {
            
         }
     }
-    
-   
 
     handleSubmit = (e)=>{
         e.preventDefault()

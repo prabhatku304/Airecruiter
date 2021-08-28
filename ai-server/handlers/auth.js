@@ -4,8 +4,11 @@ const jwt = require("jsonwebtoken");
 const { spawn } = require("child_process");
 const { signToken, decodeToken } = require("../lib/common_util");
 
+
 exports.UserRegister = async (req, res, next) => {
+  
   try {
+    console.log(req.body);
     const { body } = req;
     let user = await db.User.create(body);
     if (body.user_type === "COMPANY") {
