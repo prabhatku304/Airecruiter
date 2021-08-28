@@ -41,8 +41,9 @@ exports.applyJob = async (req, res, next) => {
     let { body } = req;
     if (user) {
       body.user_id = user._id;
-      let job = await db.CandidateToJob.findOne({ company_job: body.company_job });
-      console.log(job)
+      let job = await db.CandidateToJob.findOne({
+        $and: [{ company_job: body.company_job }, { user_id: user._id }],
+      });
       if (job) {
         return next({
           message: "you have already applied",
