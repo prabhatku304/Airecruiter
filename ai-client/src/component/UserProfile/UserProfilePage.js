@@ -1,65 +1,34 @@
-import React from 'react';
-import { UserProfileContent } from './UserProfileContent';
-import { UserProfile, UserProfileUpdateApi } from '../_Api/User';
-import {connect} from 'react-redux'
-import { PageSpinner } from './PageSpinner';
-import {toast} from 'react-toastify';
+import React, { useEffect } from "react";
+import { UserProfileContent } from "./UserProfileContent";
+import { UserProfile, UserProfileUpdateApi } from "../_Api/User";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { PageSpinner } from "./PageSpinner";
+import { toast } from "react-toastify";
+import {
+  userProfileGetAction,
+  userProfileUpdateAction,
+} from "../../redux/action/user";
 
-class UserProfilePage extends React.Component{
+const UserProfilePage = () => {
+  const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.userProfile);
+  const user = useSelector((state) => state.user.user);
 
-    constructor(props){
-        super(props);
-        this.state={
-            profile:null,
-            isLoad: false
-        }
-    }
+  const onGetUserProfile = async () => {
+    await dispatch(userProfileGetAction());
+  };
+  const onUpdateUserProfile = async (data) => {
+    await dispatch(userProfileUpdateAction(data, onGetUserProfile));
+  };
+  useEffect(() => {
+    onGetUserProfile();
+  }, []);
+  return (
+    <UserProfileContent
+      profile={profile}
+      onUpdateUserProfile={onUpdateUserProfile}
+    />
+  );
+};
 
-    componentDidMount(){
-        UserProfile(this.props.user.id)
-                .then(res=>{
-                    console.log(res.data)
-                    this.setState({profile: res.data, isLoad:true})
-                }).catch(err=>console.log(err.message))
-        this.setState({isLoad: false})
-    }
-    onSubmitCallback = (values)=>{
-        console.log(values)
-        this.setState({isLoad: false})
-        UserProfileUpdateApi(values.profile, this.props.user.id)
-            .then(res=>{
-                this.setState({profile: res.data, isLoad: true})
-                toast.success("Successfully Updated")
-                
-            })
-            .catch(err=>console.log(err))
-                           
-
-    }
-
-    render(){
-        if(this.state.isLoad){
-            return(
-                <UserProfileContent 
-                profile={this.state.profile}
-                onSubmitCallback={this.onSubmitCallback}
-                />
-            )
-        }
-        else{
-            return(
-                <PageSpinner />
-            )
-        }
-        
-    }
-}
-
-function mapStateToProps(state){
-    return{
-        user : state.user.user
-    }
-}
-
-UserProfilePage = connect(mapStateToProps, null)(UserProfilePage)
-export {UserProfilePage}
+export { UserProfilePage };

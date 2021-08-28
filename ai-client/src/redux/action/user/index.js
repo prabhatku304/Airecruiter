@@ -1,5 +1,10 @@
 import React from "react";
-import { createUserApiRoute, loginUserApiRoute, getUserApiRoute } from "../../apiRoute/user";
+import {
+  createUserApiRoute,
+  loginUserApiRoute,
+  getUserApiRoute,
+  getUserProfileApiRoute,
+} from "../../apiRoute/user";
 import { apiClient } from "../../../service/apiClient";
 import { reduxPayload } from "../base";
 import {
@@ -7,6 +12,9 @@ import {
   USER_REGISTER_PENDING,
   USER_LOGIN,
   USER_LOGIN_PENDING,
+  USER_PROFILE_GET_PENDING,
+  USER_PROFILE,
+  USER_PROFILE_UPDATE_PENDING,
 } from "./type";
 
 const userRegisterAction = (data) => {
@@ -57,7 +65,45 @@ const userGetAction = () => {
       });
   };
 };
+
+const userProfileGetAction = () => {
+  const url = getUserProfileApiRoute();
+  return (dispatch) => {
+    dispatch(reduxPayload(USER_PROFILE_GET_PENDING, true));
+    apiClient({ method: "GET", url: url })
+      .then((res) => {
+        dispatch(reduxPayload(USER_PROFILE, res.data));
+        dispatch(reduxPayload(USER_PROFILE_GET_PENDING, false));
+      })
+      .catch((err) => {
+        dispatch(reduxPayload(USER_PROFILE_GET_PENDING, false));
+      });
+  };
+};
+const userProfileUpdateAction = (data, callback) => {
+  const url = getUserProfileApiRoute();
+  return (dispatch) => {
+    dispatch(reduxPayload(USER_PROFILE_UPDATE_PENDING, true));
+    apiClient({ method: "PUT", url: url, data })
+      .then((res) => {
+        dispatch(reduxPayload(USER_PROFILE_UPDATE_PENDING, false));
+        if (callback) {
+          callback();
+        }
+      })
+      .catch((err) => {
+        dispatch(reduxPayload(USER_PROFILE_UPDATE_PENDING, false));
+      });
+  };
+};
 const userLogoutAction = async () => {
   await localStorage.clear();
 };
-export { userLoginAction, userRegisterAction, userLogoutAction, userGetAction };
+export {
+  userLoginAction,
+  userRegisterAction,
+  userLogoutAction,
+  userGetAction,
+  userProfileGetAction,
+  userProfileUpdateAction,
+};

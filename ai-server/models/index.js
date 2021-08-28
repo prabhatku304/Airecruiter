@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 mongoose.set("debug", true);
 mongoose.Promise = Promise;
-
+//mongodb://localhost/airecruiter
+//mongodb+srv://prabhat:prabhat@123@cluster0.xazpf.mongodb.net/ai
 mongoose.connect("mongodb://localhost/airecruiter", {
   useNewUrlParser: true,
 

@@ -20,10 +20,16 @@ import { connect, useDispatch } from "react-redux";
 import { CompanyLeaderPage } from "../component/CompanyPage/CompanyLeaderPage/CompanyLeaderPage";
 import { CandidateScorePage } from "../component/CompanyPage/CandidateScorePage/CandidateScorePage";
 import { PageSpinner } from "../component/UserProfile/PageSpinner";
-import { companyJobRoute, companyJobDetailRoute } from "./route";
+import {
+  companyJobRoute,
+  companyJobDetailRoute,
+  uploadResumeRoute,
+  candidateProfileRoute,
+} from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
 import CompanyJobDetailPage from "../component/CompanyPage/CompanyJobDetailPage/CompanyJobDetailPage";
+import CandidateResumePage from "../component/CandidateResumePage/CandidateResumePage";
 
 const RouterContents = (props) => {
   const dispatch = useDispatch();
@@ -52,7 +58,6 @@ const RouterContents = (props) => {
                 ):( */}
         <>
           <Route exact path="/register" component={RegisterPage} />
-          <Route exact path="/profile" component={UserProfilePage} />
           <Route exact path="/login" component={LoginPage} />
           {/* <Route exact path='/test' component={WebCamPage} /> */}
           <Route exact path="/company/login" component={CompanyLoginPage} />
@@ -75,6 +80,16 @@ const RouterContents = (props) => {
             exact
             path={companyJobDetailRoute(false)}
             component={CompanyJobDetailPage}
+          />
+          <Route
+            exact
+            path={uploadResumeRoute()}
+            component={CandidateResumePage}
+          />
+          <Route
+            exact
+            path={candidateProfileRoute()}
+            component={UserProfilePage}
           />
         </>
         {/* 
