@@ -15,10 +15,11 @@ exports.UserRegister = async (req, res, next) => {
       };
       let company = await db.Company.create(body);
       user.company = company._id;
+    } else if (body.user_type === "CANDIDATE") {
+      let tempProfile = await db.UserProfile.create({ user: user._id });
+      user.profile = tempProfile._id;
+      await tempProfile.save();
     }
-    // let tempProfile = await db.UserProfile.create({ user: user._id });
-    // user.profile = tempProfile._id;
-    // await tempProfile.save();
 
     let token = await signToken(user);
     user.token = token;

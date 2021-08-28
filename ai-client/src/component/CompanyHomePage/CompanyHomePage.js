@@ -1,58 +1,21 @@
-import React,{Component} from 'react';
-import { CompanyApi } from '../_Api/Company';
-import { CompanyHomePageContent } from './CompanyHomePageContent';
-import { PageSpinner } from '../UserProfile/PageSpinner';
-import {connect} from 'react-redux'
-import { UserDataApi } from '../_Api/User';
+import React, { Component, useEffect } from "react";
 
-class CompanyHomePages extends Component{
+import { CompanyHomePageContent } from "./CompanyHomePageContent";
+import { PageSpinner } from "../UserProfile/PageSpinner";
+import { useDispatch, useSelector } from "react-redux";
+import { companyJobGetAction } from "../../redux/action/companyJob";
 
-    constructor(props){
-        super(props)
-        this.state={
-            data: null,
-            isLoad: false,
-            company:null
-        }
-    }
+const CompanyHomePage = () => {
+  const dispatch = useDispatch();
+  const companyJobs = useSelector((state) => state.companyJob.companyJob);
+  const user = useSelector((state) => state.user.user);
+  const onGetCompanyJobs = async () => {
+    await dispatch(companyJobGetAction());
+  };
+  useEffect(() => {
+    onGetCompanyJobs();
+  }, []);
+  return <CompanyHomePageContent data={companyJobs} user={user} />;
+};
 
-    componentDidMount(){
-        CompanyApi()
-            .then(res=>{
-                this.setState({data: res.data})
-                console.log(res.data)
-            }).catch(err=>console.log(err))
-        UserDataApi(this.props.user.id)
-            .then(res=>{
-                console.log(res.data)
-                this.setState({company: res.data, isLoad: true})
-            }).catch(err=>console.log(err.data))
-    }
-
-
-    render(){
-        if(this.state.data && this.state.company && this.props.user){
-        return(
-            <CompanyHomePageContent 
-                data = {this.state.data}
-                user={this.props.user}
-                userRegisteredCompany ={this.state.company}
-                />
-
-        )}else{
-            return(
-                <PageSpinner />
-            )
-        }
-    }
-}
-
-function mapStateToProps(state){
-    return{
-        user: state.user.user
-    }
-}
-
- const CompanyHomePage = connect(mapStateToProps, null)(CompanyHomePages)
-
-export {CompanyHomePage}
+export { CompanyHomePage };

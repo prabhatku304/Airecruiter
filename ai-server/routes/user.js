@@ -1,13 +1,15 @@
+const { userProfileUpdate, userProfile } = require("../handlers/user");
+
 const express = require("express"),
   router = express.Router(),
   db = require("../models"),
   {
     UserLogin,
     UserRegister,
-    UserProfile,
+
     UserProfileRequest,
     UserData,
-    getUser
+    getUser,
   } = require("../handlers/auth"),
   { UserRegisteredCompany } = require("../handlers/company"),
   { UserTestScore, UserTestStatus } = require("../handlers/score");
@@ -15,12 +17,14 @@ const express = require("express"),
 router.post("/user/register", UserRegister);
 router.post("/user/login", UserLogin);
 router.get("/user", getUser);
+router.get("/candidate/profile", userProfile);
+router.put("/candidate/profile", userProfileUpdate);
 
 router.get("/user/:id", UserData);
 router.get("/user/:user_id/test/:c_id/status", UserTestStatus);
 router.post("/user/test/score", UserTestScore);
 
-router.put("/user/:id/profile", UserProfile);
+router.put("/user/:id/profile", userProfile);
 router.get("/user/:id/profile", UserProfileRequest);
 router.get("/user/:id/registered", UserRegisteredCompany);
 router.delete("/user/:id/delete", async (req, res, next) => {

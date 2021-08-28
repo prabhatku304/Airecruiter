@@ -7,4 +7,17 @@ const loginUserApiRoute = () => {
 const getUserApiRoute = () => {
   return "/user";
 };
-export { createUserApiRoute, loginUserApiRoute, getUserApiRoute };
+
+const getUserProfileApiRoute = () => {
+  return "/candidate/profile";
+};
+const updateUserProfileRoute = () => {
+  return "/candidate/profile";
+};
+export {
+  createUserApiRoute,
+  loginUserApiRoute,
+  getUserApiRoute,
+  getUserProfileApiRoute,
+  updateUserProfileRoute,
+};
