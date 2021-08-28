@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const CompanyJobDetailComponent = () => {
+const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setData(appliedData);
+  }, [appliedData]);
+  const onShortlistedCandidate = () => {
+    onJobShortlisting(data);
+  };
   return (
     <div className="container">
       <div className="">
@@ -15,21 +22,34 @@ const CompanyJobDetailComponent = () => {
               </tr>
             </thead>
             <tbody>
-              {[1, 2, 3].map((ele, i) => (
-                <tr key={i}>
-                  <th scope="row">{i}</th>
-                  <td>Mark</td>
-                  <td>100</td>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                </tr>
-              ))}
+              {data &&
+                data.map((ele, i) => (
+                  <tr key={i}>
+                    <th scope="row">{i}</th>
+                    <td>{ele.user_id && ele.user_id.name}</td>
+                    <td>{ele.resume_score}</td>
+                    <td>
+                      <input
+                        checked={ele.is_shortlisted ? true : false}
+                        type="checkbox"
+                        // value={ele.is_shortlisted}
+                        onChange={() => {
+                          let tempData = [...data];
+                          tempData[i].is_shortlisted = !ele.is_shortlisted;
+                          console.log(tempData);
+                          setData(tempData);
+                        }}
+                      />
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
         <div className="text-center">
-          <button className="btn btn-primary">Shortlist</button>
+          <button className="btn btn-primary" onClick={onShortlistedCandidate}>
+            Shortlist
+          </button>
         </div>
       </div>
     </div>

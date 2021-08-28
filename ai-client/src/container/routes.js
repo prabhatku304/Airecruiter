@@ -25,11 +25,15 @@ import {
   companyJobDetailRoute,
   uploadResumeRoute,
   candidateProfileRoute,
+  jobDetailRoute,
 } from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
 import CompanyJobDetailPage from "../component/CompanyPage/CompanyJobDetailPage/CompanyJobDetailPage";
 import CandidateResumePage from "../component/CandidateResumePage/CandidateResumePage";
+import JobDetailPage from "../component/JobDetailPage/JobDetailPage";
+import ProtectedRoute from "./protectedRoute";
+import { routeType } from "../constant/route_constant";
 
 const RouterContents = (props) => {
   const dispatch = useDispatch();
@@ -40,10 +44,9 @@ const RouterContents = (props) => {
     onGetUser();
   }, []);
   return (
-    <Router history={history}>
+    <Router>
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route exact path="/company" component={CompanyHomePage} />
         <Route exact path="/test" component={PageSpinner} />
 
         {/* {props.admin.is_admin ? (
@@ -70,26 +73,71 @@ const RouterContents = (props) => {
           />
 
           <Route exact path="/user/:id/test" component={McqTestPage} />
-          <Route
+          {/* <Route
             exact
             path="/user/interview/:user_id/:c_id"
             component={InterviewTestPage}
+          /> */}
+          <Route
+            exact
+            path="/company"
+            component={() => (
+              <ProtectedRoute
+                type={routeType.CANDIDATE_COMPANY_JOBS_VIEW}
+                accessType="access"
+              />
+            )}
           />
-          <Route exact path={companyJobRoute()} component={CompanyJobPage} />
+
+          <Route
+            exact
+            path={companyJobRoute()}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.COMPANY_JOBS_VIEW}
+                accessType="access"
+              />
+            )}
+          />
           <Route
             exact
             path={companyJobDetailRoute(false)}
-            component={CompanyJobDetailPage}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.COMPANY_JOB_DETAIL_VIEW}
+                accessType="access"
+              />
+            )}
           />
           <Route
             exact
             path={uploadResumeRoute()}
-            component={CandidateResumePage}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.CANDIDATE_UPLOAD_RESUME_VIEW}
+                accessType="access"
+              />
+            )}
           />
           <Route
             exact
             path={candidateProfileRoute()}
-            component={UserProfilePage}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.CANDIDATE_PROFILE_VIEW}
+                accessType="access"
+              />
+            )}
+          />
+          <Route
+            exact
+            path={jobDetailRoute(false)}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.CANDIDATE_JOB_DETAIL_VIEW}
+                accessType="access"
+              />
+            )}
           />
         </>
         {/* 

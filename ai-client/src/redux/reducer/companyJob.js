@@ -3,12 +3,19 @@ import {
   COMPANY_JOBS_ADD_PENDING,
   COMPANY_JOBS_GET_PENDING,
   COMPANY_JOB_ERROR,
+  COMPANY_JOB_DETAIL,
+  COMPANY_JOB_APPLIED,
+  JOB_SHORTLISTING_PENDING,
 } from "../action/companyJob/type";
 
 const DEFAULT_STATE = {
   companyJob: null,
+  companyJobDetail: null,
+  jobAppliedCandidate: null,
   isAuthenticated: null,
   isCompanyJobGetPending: false,
+  isCompanyJobDetailGetPending: false,
+  isJobShortlistingPending: false,
   isCompanyJobAddPending: false,
   error: null,
 };
@@ -22,6 +29,21 @@ export const companyJobReducer = (
       return {
         ...state,
         companyJob: payload,
+      };
+    case COMPANY_JOB_APPLIED:
+      return {
+        ...state,
+        jobAppliedCandidate: payload,
+      };
+    case COMPANY_JOB_DETAIL:
+      return {
+        ...state,
+        companyJobDetail: payload,
+      };
+    case JOB_SHORTLISTING_PENDING:
+      return {
+        ...state,
+        isJobShortlistingPending: payload,
       };
     case COMPANY_JOBS_ADD_PENDING:
       return {

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const CandidateToJobSchema = new mongoose.Schema(
   {
@@ -8,7 +8,7 @@ const CandidateToJobSchema = new mongoose.Schema(
       required: true,
     },
 
-    company_job_id: {
+    company_job: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "CompanyJob",
       required: true,
@@ -22,6 +22,7 @@ const CandidateToJobSchema = new mongoose.Schema(
     },
     is_shortlisted: {
       type: Boolean,
+      default: false,
     },
     is_selected: {
       type: Boolean,
