@@ -103,9 +103,8 @@ exports.candidateRecomendation = async (req, res, next) => {
     let JD =
       " i need need a machine learning team leader who has supermen powers";
     let process = await spawn("python", ["ml/resume.py", selectedProfile, JD]);
-    process.stdout.on("data", async function (data) {
-      score = data.toString();
-      console.log(score);
+    process.stdout.on("data", function (data) {
+      console.log(data.toString());
     });
     process.stderr.on("data", function (data) {
       console.log(data);
@@ -127,7 +126,7 @@ exports.getCandidateAppliedJob = async (req, res, next) => {
       res.send(job);
     } else {
       return next({
-        message: "Aunauthorization",
+        message: "unauthorized",
         status: 401,
       });
     }

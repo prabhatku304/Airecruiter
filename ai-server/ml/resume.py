@@ -26,9 +26,9 @@ sw = stopwords.words('english')
 
 
 #####Uncomment below
-cand = sys.arg[1]
-JD = sys.arg[2]
-
+cand = sys.argv[1]
+JD = sys.argv[2]
+print(cand)
 for i in cand:
     skills=i.get('skills')
     exp=i.get('experience')
