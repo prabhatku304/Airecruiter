@@ -18,6 +18,7 @@ const UserProfilePage = () => {
     await dispatch(userProfileGetAction());
   };
   const onUpdateUserProfile = async (data) => {
+    console.log(data);
     await dispatch(userProfileUpdateAction(data, onGetUserProfile));
   };
   useEffect(() => {
