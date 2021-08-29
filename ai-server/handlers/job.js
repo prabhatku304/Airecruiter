@@ -2,6 +2,7 @@ const db = require("../models");
 const { decodeToken } = require("../lib/common_util");
 require("dotenv").load;
 const nodemailer = require("nodemailer");
+const { spawn } = require("child_process");
 
 const smtpNodemailer = nodemailer.createTransport({
   service: "Gmail",
@@ -44,15 +45,31 @@ exports.applyJob = async (req, res, next) => {
       let job = await db.CandidateToJob.findOne({
         $and: [{ company_job: body.company_job }, { user_id: user._id }],
       });
+      let userProfile = await db.UserProfile.findOne({ user: user._id });
       if (job) {
         return next({
           message: "you have already applied",
           status: 406,
         });
       }
-      job = await db.CandidateToJob.create(body);
-      await job.save();
-      res.send(job);
+      let process = await spawn("python", [
+        "ml/resume_score.py",
+        userProfile.skills,
+        userProfile.experience,
+        body.job_description,
+      ]);
+      let score;
+      process.stdout.on("data", async function (data) {
+        score = data.toString();
+        body.resume_score = score;
+        job = await db.CandidateToJob.create(body);
+        await job.save();
+        res.send(job);
+      });
+
+      process.stderr.on("data", function (data) {
+        console.log(data);
+      });
     } else {
       return next({
         message: "Aunauthorization",
@@ -60,6 +77,7 @@ exports.applyJob = async (req, res, next) => {
       });
     }
   } catch (err) {
+    console.log(err);
     return next({
       message: err.message || "Something went wrong",
     });

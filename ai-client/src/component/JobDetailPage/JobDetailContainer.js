@@ -20,6 +20,7 @@ const JobDetailContainer = () => {
     if (params && params.jobId) {
       let data = {
         company_job: params.jobId,
+        job_description: jobData && jobData.job_description,
       };
       await dispatch(companyJobApplyAction(data));
     }
