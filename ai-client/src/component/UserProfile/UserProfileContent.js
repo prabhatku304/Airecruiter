@@ -5,10 +5,10 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   college: yup.string(),
-  experience: yup.string().required("Exprience is required"),
+  experience: yup.string(),
   languages: yup.string(),
-  skills: yup.string().required("Skills is required"),
-  contact: yup.string().required("Contact is required"),
+  skills: yup.string(),
+  contact: yup.string(),
   email: yup.string(),
   name: yup.string(),
 });
@@ -197,7 +197,9 @@ const UserProfileContent = (props) => {
                           </div>
                         </div>
                         <div className="row update-btn">
-                          <button className="btn ">Update</button>
+                          <button className="btn " type="submit">
+                            Update
+                          </button>
                         </div>
                       </form>
                     )}
