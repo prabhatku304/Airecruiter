@@ -19,14 +19,14 @@ const CompanyCard = (props) => {
               onClick={() => onChangeJobDetailRoute(res._id)}
             >
               <div className="title-image">
-                <img
+                {/* <img
                   style={{ width: 300, height: 200 }}
                   className="img-fluid"
                   src={
                     "https://beatest-blobs1.s3.ap-south-1.amazonaws.com/Activity+Inside+Banners/java+developer+card.jpg"
                   }
                   alt=""
-                />
+                /> */}
               </div>
               <div className="desc p-2">
                 <div className="title">
