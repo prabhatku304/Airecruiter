@@ -84,39 +84,57 @@ exports.applyJob = async (req, res, next) => {
   }
 };
 
+// exports.candidateRecomendation = async (req, res, next) => {
+//   try {
+//     let { body } = req;
+//     let selectedProfile = [];
+//     let userProfile = await db.UserProfile.find({});
+//     if (userProfile && userProfile.length > 0) {
+//       userProfile.map((res) => {
+//         if (res.skills && res.experience) {
+//           selectedProfile.push({
+//             user_id: res.user,
+//             skills: res.skills,
+//             experience: res.experience,
+//           });
+//         }
+//       });
+//     }
+//     let JD =
+//       " i need need a machine learning team leader who has supermen powers";
+//     let process = await spawn("python", ["ml/resume.py", selectedProfile, JD]);
+//     process.stdout.on("data", function (data) {
+//       console.log(data.toString());
+//     });
+//     process.stderr.on("data", function (data) {
+//       console.log(data);
+//     });
+//   } catch (err) {
+//     console.log(err);
+//     return next({
+//       message: err.message || "Something went wrong",
+//     });
+//   }
+// };
 exports.candidateRecomendation = async (req, res, next) => {
   try {
-    let { body } = req;
-    let selectedProfile = [];
-    let userProfile = await db.UserProfile.find({});
-    if (userProfile && userProfile.length > 0) {
-      userProfile.map((res) => {
-        if (res.skills && res.experience) {
-          selectedProfile.push({
-            user_id: res.user,
-            skills: res.skills,
-            experience: res.experience,
-          });
-        }
+    let user = await decodeToken(req);
+    let { query } = req;
+    if (user) {
+      let job = await db.CandidateToJob.find({}).populate("user_id");
+      res.send(job);
+    } else {
+      return next({
+        message: "unauthorized",
+        status: 401,
       });
     }
-    let JD =
-      " i need need a machine learning team leader who has supermen powers";
-    let process = await spawn("python", ["ml/resume.py", selectedProfile, JD]);
-    process.stdout.on("data", function (data) {
-      console.log(data.toString());
-    });
-    process.stderr.on("data", function (data) {
-      console.log(data);
-    });
   } catch (err) {
-    console.log(err);
     return next({
       message: err.message || "Something went wrong",
     });
   }
 };
-
 exports.getCandidateAppliedJob = async (req, res, next) => {
   try {
     let user = await decodeToken(req);

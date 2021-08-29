@@ -3,7 +3,7 @@ mongoose.set("debug", true);
 mongoose.Promise = Promise;
 //mongodb://localhost/airecruiter
 //mongodb+srv://prabhat:prabhat@123@cluster0.xazpf.mongodb.net/ai
-mongoose.connect("mongodb://localhost/ai-test", {
+mongoose.connect("mongodb+srv://prabhat:prabhat@123@cluster0.xazpf.mongodb.net/ai-rec", {
   useNewUrlParser: true,
 
   useUnifiedTopology: true,

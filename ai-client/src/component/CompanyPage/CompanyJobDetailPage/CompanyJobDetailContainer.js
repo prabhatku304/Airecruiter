@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   jobAppliedCandidateAction,
   jobShortlistingAction,
+  recommendCandidateGetAction,
 } from "../../../redux/action/companyJob";
 
 const CompanyJobDetailContainer = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
+  const recData = useSelector((state) => state.companyJob.jobAppliedCandidate);
   const appliedData = useSelector(
     (state) => state.companyJob.jobAppliedCandidate
   );
@@ -20,6 +22,7 @@ const CompanyJobDetailContainer = (props) => {
       };
       await dispatch(jobAppliedCandidateAction(data));
     }
+    await dispatch(recommendCandidateGetAction());
   };
   const onJobShortlisting = async (data) => {
     await dispatch(jobShortlistingAction(data, onGetJobAppliedCandidate));
@@ -32,6 +35,7 @@ const CompanyJobDetailContainer = (props) => {
       <CompanyJobDetailComponent
         appliedData={appliedData}
         onJobShortlisting={onJobShortlisting}
+        recData={recData}
       />
     </section>
   );
