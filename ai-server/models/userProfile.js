@@ -15,7 +15,6 @@ const userSchema = new mongoose.Schema({
   },
   skills: {
     type: String,
-    default: "",
   },
   languages: {
     type: String,
@@ -23,7 +22,6 @@ const userSchema = new mongoose.Schema({
   },
   experience: {
     type: String,
-    default: "",
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,

@@ -2,6 +2,7 @@ import {
   CANDIDATE_APPLIED_JOB,
   CANDIDATE_APPLIED_JOB_GET_PENDING,
   CANDIDATE_APPLIED_JOB_ERROR,
+  JOB_APPLY_PENDING,
 } from "../action/candidateJob/type";
 
 const DEFAULT_STATE = {
@@ -21,6 +22,11 @@ export const candidateJobReducer = (
         appliedJob: payload,
       };
     case CANDIDATE_APPLIED_JOB_GET_PENDING:
+      return {
+        ...state,
+        isCandidateAppliedJobPending: payload,
+      };
+    case JOB_APPLY_PENDING:
       return {
         ...state,
         isCandidateAppliedJobPending: payload,

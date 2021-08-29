@@ -84,6 +84,41 @@ exports.applyJob = async (req, res, next) => {
   }
 };
 
+exports.candidateRecomendation = async (req, res, next) => {
+  try {
+    let { body } = req;
+    let selectedProfile = [];
+    let userProfile = await db.UserProfile.find({});
+    if (userProfile && userProfile.length > 0) {
+      userProfile.map((res) => {
+        if (res.skills && res.experience) {
+          let process = await spawn("python", [
+            "ml/resume_score.py",
+            res.skills,
+            res.experience,
+            body.job_description,
+          ]);
+          let score;
+          process.stdout.on("data", async function (data) {
+            score = data.toString();
+            selectedProfile.push({
+              resume_score: score,
+              user_id: res.user,
+            });
+          });
+          console.log(userProfile);
+        }
+      });
+    }
+    console.log(userProfile);
+  } catch (err) {
+    console.log(err);
+    return next({
+      message: err.message || "Something went wrong",
+    });
+  }
+};
+
 exports.getCandidateAppliedJob = async (req, res, next) => {
   try {
     let user = await decodeToken(req);
