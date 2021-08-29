@@ -29,7 +29,6 @@ const JobDetailContainer = () => {
       await dispatch(companyJobApplyAction(data));
     }
   };
-  console.log(isApplyPending);
   useEffect(() => {
     onGetJobDetail();
   }, []);

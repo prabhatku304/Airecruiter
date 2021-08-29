@@ -10,8 +10,11 @@ const PageSpinner = (props) => {
           style={{ width: "100%", height: 400, zIndex: 5 }}
         >
           <div style={{ paddingTop: "20%", position: "absolute" }}>
-            <div className="spinner">
-              <Spinner name="ball-scale-ripple" color="#B4D6FC" />
+            <div
+              className="spinner card p-3 rounded-circle"
+              style={{ backgroundColor: "#fff" }}
+            >
+              <Spinner name="ball-scale-ripple" color="#000" />
             </div>
           </div>
         </div>
