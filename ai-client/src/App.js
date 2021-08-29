@@ -1,6 +1,8 @@
 import React from "react";
 import { RouterContent } from "./container/routes";
 import { Provider } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { rootStore } from "./redux";
 
 import { NavBar } from "./container/NavBar/Navbar";
@@ -13,6 +15,7 @@ function App() {
       <NavBar />
       <RouterContent />
       <Footer />
+      <ToastContainer />
     </Provider>
   );
 }

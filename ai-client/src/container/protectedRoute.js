@@ -13,6 +13,8 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { PageSpinner } from "../component/UserProfile/PageSpinner";
 import { UserProfilePage } from "../component/UserProfile/UserProfilePage";
+import { McqTestPage } from "../component/TestPage/McqTestPage/McqTestPage";
+import { DashboardPage } from "../component/DashboardPage/DashboardPage";
 
 const ProtectedRoute = ({ accessType, type }) => {
   const history = useHistory();
@@ -33,6 +35,8 @@ const ProtectedRoute = ({ accessType, type }) => {
         return <JobDetailPage />;
       case routeType.CANDIDATE_PROFILE_VIEW:
         return <UserProfilePage />;
+      case routeType.CANDIDATE_DASHBOARD_VIEW:
+        return <DashboardPage />;
 
       case routeType.COMPANY_REGISTER_VIEW:
         return <CompanyRegisterPage />;
@@ -42,9 +46,11 @@ const ProtectedRoute = ({ accessType, type }) => {
         return <CompanyJobPage />;
       case routeType.COMPANY_JOB_DETAIL_VIEW:
         return <CompanyJobDetailPage />;
+
+      case routeType.TECHNICAL_TEST_VIEW:
+        return <McqTestPage />;
     }
   };
-  console.log(isUserGetPending);
   if (isAuthenticated && user) {
     console.log(1);
     return onRenderComponent(type);
@@ -55,6 +61,7 @@ const ProtectedRoute = ({ accessType, type }) => {
     console.log(2);
 
     history.push("/");
+    return <div> </div>;
   } else {
     console.log(3);
 

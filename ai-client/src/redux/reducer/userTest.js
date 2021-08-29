@@ -1,23 +1,31 @@
-const { USER_TEST } = require("../action")
+import {
+  TECHNICAL_TEST_SUBMIT_PENDING,
+  PERSONALITY_TEST_SUBMIT_PENDING,
+} from "../action/userTest/type";
 
-const DEFAULT_STATE ={
-   test:{},
-}
+const DEFAULT_STATE = {
+  isTechnicalTestSubmitPending: false,
+  isPersonaltyTestSubmitPending: false,
+  error: null,
+};
 
-const UserTest = (state=DEFAULT_STATE, action)=>{
+export const testReducer = (
+  state = DEFAULT_STATE,
+  { type, payload, error }
+) => {
+  switch (type) {
+    case TECHNICAL_TEST_SUBMIT_PENDING:
+      return {
+        ...state,
+        isTechnicalTestSubmitPending: payload,
+      };
+    case PERSONALITY_TEST_SUBMIT_PENDING:
+      return {
+        ...state,
+        isPersonaltyTestSubmitPending: payload,
+      };
 
-    switch(action.type){
-
-        case USER_TEST:
-            return{
-                ...state,
-                test: action.data
-            }
-
-        default: return{
-            ...state
-        }
-    }
-}
-
-export {UserTest}
+    default:
+      return state;
+  }
+};

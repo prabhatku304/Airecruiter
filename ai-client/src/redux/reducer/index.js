@@ -1,13 +1,15 @@
 import { combineReducers } from "redux";
-import { UserTest } from "./userTest";
 import { userReducer } from "./user";
 import { companyJobReducer } from "./companyJob";
 import { USER_LOGOUT } from "../action/user/type";
+import { testReducer } from "./userTest";
+import { candidateJobReducer } from "./candidateJob";
 
 const appReducer = combineReducers({
   user: userReducer,
-  test: UserTest,
+  test: testReducer,
   companyJob: companyJobReducer,
+  candidateJob: candidateJobReducer,
 });
 
 const rootReducer = (state, action) => {

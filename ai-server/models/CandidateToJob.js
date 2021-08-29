@@ -17,7 +17,7 @@ const CandidateToJobSchema = new mongoose.Schema(
     resume_score: {
       type: Number,
     },
-    test_score: {
+    personality_score: {
       type: Number,
     },
     is_shortlisted: {
@@ -30,6 +30,9 @@ const CandidateToJobSchema = new mongoose.Schema(
     is_active: {
       type: Boolean,
       default: true,
+    },
+    technical_score: {
+      type: Number,
     },
   },
   {

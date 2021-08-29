@@ -18,10 +18,10 @@ import {
   USER_GET_PENDING,
   USER_LOGOUT,
 } from "./type";
+import { toastAction } from "../toastAction";
 
 const userRegisterAction = (data) => {
   const url = createUserApiRoute();
-  console.log(url);
   return (dispatch) => {
     dispatch(reduxPayload(USER_REGISTER_PENDING, true));
     apiClient({ method: "POST", url: url, data })
@@ -29,9 +29,10 @@ const userRegisterAction = (data) => {
         localStorage.setItem("jwtToken", res.data.token);
         dispatch(reduxPayload(USER_LOGIN, res.data));
         dispatch(reduxPayload(USER_REGISTER_PENDING, false));
+        toastAction.success(`Hi ${res.data.name}`);
       })
       .catch((err) => {
-        console.log(err);
+        toastAction.error(err);
         dispatch(reduxPayload(USER_REGISTER_PENDING, false));
       });
   };
@@ -46,8 +47,11 @@ const userLoginAction = (data) => {
         localStorage.setItem("jwtToken", res.data.token);
         dispatch(reduxPayload(USER_LOGIN, res.data));
         dispatch(reduxPayload(USER_LOGIN_PENDING, false));
+        toastAction.success(`Hi ${res.data.name}`);
       })
       .catch((err) => {
+        toastAction.error(err);
+
         dispatch(reduxPayload(USER_LOGIN_PENDING, false));
       });
   };
@@ -79,6 +83,7 @@ const userProfileGetAction = () => {
       })
       .catch((err) => {
         dispatch(reduxPayload(USER_PROFILE_GET_PENDING, false));
+        toastAction.error(err);
       });
   };
 };
@@ -92,9 +97,11 @@ const userProfileUpdateAction = (data, callback) => {
         if (callback) {
           callback();
         }
+        toastAction.success("Updated");
       })
       .catch((err) => {
         dispatch(reduxPayload(USER_PROFILE_UPDATE_PENDING, false));
+        toastAction.error(err);
       });
   };
 };
