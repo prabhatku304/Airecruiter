@@ -1,104 +1,6 @@
 import React from "react";
 
 const Test = (props) => {
-  let types = {
-    ISTJ: {
-      title: "The Traditionalist",
-      percentage: "13.7%",
-      description: "Dutiful, Practical, Logical, Methodical",
-      site: "http://www.personalitypage.com/html/ISTJ.html",
-    },
-    ISFJ: {
-      title: "The Protector",
-      percentage: "12.7%",
-      description: "Dutiful, Practical, Supportive, Meticulous",
-      site: "http://www.personalitypage.com/html/ISFJ.html",
-    },
-    INFJ: {
-      title: "The Guide",
-      percentage: "1.7%",
-      description: "Devoted, Innovative, Idealistic, Compassionate",
-      site: "http://www.personalitypage.com/html/INFJ.html",
-    },
-    INTJ: {
-      title: "The Visionary",
-      percentage: "1.4%",
-      description: "Independent, Innovative, Analytical, Purposeful",
-      site: "http://www.personalitypage.com/html/INTJ.html",
-    },
-    ISTP: {
-      title: "The Problem-Solver",
-      percentage: "6.4%",
-      description: "Expedient, Practical, Objective, Adaptable",
-      site: "http://www.personalitypage.com/html/ISTP.html",
-    },
-    ISFP: {
-      title: "The Harmonizer",
-      percentage: "6.1%",
-      description: "Tolerant, Realistic, Harmonious, Adaptable",
-      site: "http://www.personalitypage.com/html/ISFP.html",
-    },
-    INFP: {
-      title: "The Humanist",
-      percentage: "3.2%",
-      description: "Insightful, Innovative, Idealistic, Adaptable",
-      site: "http://www.personalitypage.com/html/INFP.html",
-    },
-    INTP: {
-      title: "The Conceptualizer",
-      percentage: "2.4%",
-      description: "Questioning, Innovative, Objective, Abstract",
-      site: "http://www.personalitypage.com/html/INTP.html",
-    },
-    ESTP: {
-      title: "The Activist",
-      percentage: "5.8%",
-      description: "Energetic, Practical, Pragmatic, Spontaneous",
-      site: "http://www.personalitypage.com/html/ESTP.html",
-    },
-    ESFP: {
-      title: "The Fun-Lover",
-      percentage: "8.7%",
-      description: "Spontaneous, Practical, Friendly, Harmonious",
-      site: "http://www.personalitypage.com/html/ESFP.html",
-    },
-    ENFP: {
-      title: "The Enthusiast",
-      percentage: "6.3%",
-      description: "Optimistic, Innovative, Compassionate, Versatile",
-      site: "http://www.personalitypage.com/html/ENFP.html",
-    },
-    ENTP: {
-      title: "The Entrepreneur",
-      percentage: "2.8%",
-      description: "Risk-Taking, Innovative, Outgoing, Adaptable",
-      site: "http://www.personalitypage.com/html/ENTP.html",
-    },
-    ESTJ: {
-      title: "The Coordinator",
-      percentage: "10.4%",
-      description: "Organized, Practical, Logical, Outgoing",
-      site: "http://www.personalitypage.com/html/ESTJ.html",
-    },
-    ESFJ: {
-      title: "The Supporter",
-      percentage: "12.6%",
-      description: "Friendly, Practical, Loyal, Organized",
-      site: "http://www.personalitypage.com/html/ESFJ.html",
-    },
-    ENFJ: {
-      title: "The Developer",
-      percentage: "2.8%",
-      description: "Friendly, Innovative, Supportive, Idealistic",
-      site: "http://www.personalitypage.com/html/ENFJ.html",
-    },
-    ENTJ: {
-      title: "The Reformer",
-      percentage: "2.9%",
-      description: "Determined, Innovative, Strategic, Outgoing",
-      site: "http://www.personalitypage.com/html/ENTJ.html",
-    },
-  };
   let e, i, s, n, t, f, j, p;
   let type;
 
@@ -139,7 +41,6 @@ const Test = (props) => {
         }
       }
     });
-    console.log(e, j, f);
   }
 
   function calculatePercentages() {
@@ -153,45 +54,18 @@ const Test = (props) => {
     p = Math.floor((p / 20) * 100);
   }
 
-  function createCharts() {
-    document.querySelector("#eScore").innerHTML = e;
-    document.querySelector("#iScore").innerHTML = i;
-    document.querySelector("#sScore").innerHTML = s;
-    document.querySelector("#nScore").innerHTML = n;
-    document.querySelector("#tScore").innerHTML = t;
-    document.querySelector("#fScore").innerHTML = f;
-    document.querySelector("#jScore").innerHTML = j;
-    document.querySelector("#pScore").innerHTML = p;
-
-    document.querySelector("#eiChart").style.marginLeft = i / 2 + "%";
-    document.querySelector("#snChart").style.marginLeft = n / 2 + "%";
-    document.querySelector("#tfChart").style.marginLeft = f / 2 + "%";
-    document.querySelector("#jpChart").style.marginLeft = p / 2 + "%";
-  }
-
   function showResults() {
     type += e >= i ? "E" : "I";
     type += s >= n ? "S" : "N";
     type += t >= f ? "T" : "F";
     type += j >= p ? "J" : "P";
-    document.querySelector("#type").innerHTML = type;
-    document.querySelector("#type-title").innerHTML = types[type].title;
-    document.querySelector("#type-percentage").innerHTML =
-      types[type].percentage;
-    document.querySelector("#type-description").innerHTML =
-      types[type].description;
-    document.querySelector("#type-site").href = types[type].site;
-
-    document.querySelector("#type-details").classList.remove("hidden");
-    document.querySelector("#scroll-down").classList.remove("hidden");
-    document.querySelector("#results").classList.remove("hidden");
+    props.onSubmitPersonalityTest(type);
   }
 
   const onProcess = () => {
     resetScores();
     getScores();
     calculatePercentages();
-    createCharts();
     showResults();
   };
   return (
@@ -1425,81 +1299,6 @@ const Test = (props) => {
               Learn more about your type here
             </a>
           </p>
-          <p class="pull-left">
-            <span class="badge">E</span> (<span id="eScore"></span>%)
-          </p>
-          <p class="pull-right">
-            (<span id="iScore"></span>%) <span class="badge">I</span>
-          </p>
-          <div class="progress">
-            <div
-              id="eiChart"
-              class="progress-bar progress-bar-warning"
-              role="progressbar"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div class="center-bar"></div>
-          </div>
-          <br class="clearfix" />
-
-          <p class="pull-left">
-            <span class="badge">S</span> (<span id="sScore"></span>%)
-          </p>
-          <p class="pull-right">
-            (<span id="nScore"></span>%) <span class="badge">N</span>
-          </p>
-          <div class="progress">
-            <div
-              id="snChart"
-              class="progress-bar progress-bar-primary"
-              role="progressbar"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div class="center-bar"></div>
-          </div>
-          <br class="clearfix" />
-
-          <p class="pull-left">
-            <span class="badge">T</span> (<span id="tScore"></span>%)
-          </p>
-          <p class="pull-right">
-            (<span id="fScore"></span>%) <span class="badge">F</span>
-          </p>
-          <div class="progress">
-            <div
-              id="tfChart"
-              class="progress-bar progress-bar-success"
-              role="progressbar"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div class="center-bar"></div>
-          </div>
-          <br class="clearfix" />
-
-          <p class="pull-left">
-            <span class="badge">J</span> (<span id="jScore"></span>%)
-          </p>
-          <p class="pull-right">
-            (<span id="pScore"></span>%) <span class="badge">P</span>
-          </p>
-          <div class="progress">
-            <div
-              id="jpChart"
-              class="progress-bar progress-bar-danger"
-              role="progressbar"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            ></div>
-            <div class="center-bar"></div>
-          </div>
-          <br class="clearfix" />
         </div>
       </div>
     </>

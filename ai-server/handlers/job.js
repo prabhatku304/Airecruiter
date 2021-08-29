@@ -179,3 +179,17 @@ exports.shortlistCandidate = async (req, res, next) => {
     });
   }
 };
+
+exports.selectCandidate = async (req, res, next) => {
+  try {
+    let { body } = req;
+    let job = await db.CandidateToJob.findById(body.candJobId);
+    job.is_selected = body.is_selected;
+    await job.save();
+    res.send(job);
+  } catch (err) {
+    return next({
+      message: err.message || "Something went wrong",
+    });
+  }
+};

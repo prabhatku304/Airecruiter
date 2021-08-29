@@ -1,12 +1,19 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
-import { technicalTestRoute } from "../../container/route";
+import {
+  technicalTestRoute,
+  personalityTestRoute,
+} from "../../container/route";
 
 const DashboardPageContent = (props) => {
   const user = useSelector((state) => state.user.user);
   const onStartTechnicalTest = (jobId) => {
     let url = technicalTestRoute(true, jobId, user._id);
+    window.open(url, "_blank");
+  };
+  const onStartPersonalityTest = (jobId) => {
+    let url = personalityTestRoute(true, jobId, user._id);
     window.open(url, "_blank");
   };
   return (
@@ -48,7 +55,7 @@ const DashboardPageContent = (props) => {
                       <div className=" update-btn">
                         <button
                           className="btn"
-                          onClick={() => props.onStartTest(res._id)}
+                          onClick={() => onStartPersonalityTest(res._id)}
                         >
                           Start Personality Test
                         </button>

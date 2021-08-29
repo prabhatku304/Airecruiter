@@ -18,7 +18,7 @@ const CandidateToJobSchema = new mongoose.Schema(
       type: Number,
     },
     personality_score: {
-      type: Number,
+      type: Object,
     },
     is_shortlisted: {
       type: Boolean,

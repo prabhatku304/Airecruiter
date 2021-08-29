@@ -8,6 +8,9 @@ import { candidateAppliedJobGetAction } from "../../redux/action/candidateJob";
 const DashboardPage = () => {
   const dispatch = useDispatch();
   const appliedJob = useSelector((state) => state.candidateJob.appliedJob);
+  const isJobGetPending = useSelector(
+    (state) => state.candidateJob.isCandidateAppliedJobPending
+  );
   const [data, setData] = useState([]);
 
   const onFilterData = (type) => {
@@ -34,9 +37,9 @@ const DashboardPage = () => {
   useEffect(() => {
     setData(appliedJob);
   }, [appliedJob]);
-  console.log(data);
   return (
     <div className="p-0 m-0">
+      <PageSpinner isLoading={isJobGetPending} />
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
           <button
