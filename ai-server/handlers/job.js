@@ -102,9 +102,10 @@ exports.candidateRecomendation = async (req, res, next) => {
     }
     let JD =
       " i need need a machine learning team leader who has supermen powers";
-    let process = await spawn("python", ["ml/resume.py", selectedProfile, JD]);
+    let temp = JSON.stringify(selectedProfile);
+    let process = await spawn("python", ["ml/final.py", temp, JD]);
     process.stdout.on("data", function (data) {
-      console.log(data.toString());
+      console.log(JSON.parse(data.toString()));
     });
     process.stderr.on("data", function (data) {
       console.log(data);

@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[30]:
-
-
+# In[31]:
 
 
 import math
@@ -16,51 +14,12 @@ lemmatizer = WordNetLemmatizer()
 import nltk
 nltk.download('stopwords')
 sw = stopwords.words('english') 
-
-
-# In[31]:
-
-
-#sys.arg[1] = [{'skills': 'java', 'experience': '', 'user_id': '123'}]
-#sys.arg[2] = 'job description'
-
-
-#####Uncomment below
-cand = sys.argv[1]
-JD = sys.argv[2]
-print(cand)
-for i in cand:
-
-    skills=i.get('skills')
-    print(skills)
-    exp=i.get('experience')
-
-### Comment below    
-# skills='Machine Learning with Python learning test supermen';
-# exp ='Issue Handling of the bank clients is too much hard to regarding their account, i am a team leader'; 
-# JD=' i need need a machine learning team leader who has supermen powers';
-# cand= [{'skills': 'java', 'experience': 'java', 'user_id': '123'}];
-#####
-
-resume= skills+' '+exp;
-resume=' '.join(dict.fromkeys(resume.split()))
-JD=' '.join(dict.fromkeys(JD.split()))
-
-Y_set = [lemmatizer.lemmatize(w).lower() for w in resume.split() if not w in sw]
-# function to predict n most similar words using word2vec model
-r1 = [item.replace("\n", "") for item in Y_set]
-r1=' '.join(r1)
-
-X_set = [lemmatizer.lemmatize(w).lower() for w in JD.split() if not w in sw]
-jd = [item.replace("\n", "") for item in X_set]
-jd=' '.join(jd)
-#print(jd)
+import re
 
 
 # In[32]:
 
 
-#Normalized Term Frequency
 def termFreq(term, document):
     normalizeDocument = document.lower().split()
     return normalizeDocument.count(term.lower()) / float(len(normalizeDocument))
@@ -79,13 +38,6 @@ def normalizedtf(documents):
         df.insert(loc=idx, column='Document', value=new_col)
         print(df)
     return tf_doc
-
-tf_doc = normalizedtf([r1])
-
-
-# In[33]:
-
-
 def invDocFreq(term, allDocuments):
     numDocumentsWithThisTerm = 0
     for doc in range (0, len(allDocuments)):
@@ -96,7 +48,6 @@ def invDocFreq(term, allDocuments):
         return 1.0 + math.log(float(len(allDocuments)) / numDocumentsWithThisTerm)
     else:
         return 1.0
-    
 def comp_idf(documents):
     idf_dict = {}
     for doc in documents:
@@ -104,15 +55,6 @@ def comp_idf(documents):
         for word in sentence:
             idf_dict[word] = invDocFreq(word, documents)
     return idf_dict
-idf_dict = comp_idf([r1])
-
-#comp_idf([r1])
-
-
-# In[34]:
-
-
-# tf-idf score across all docs 
 def comp_tfidf_forall(documents , query):
     tf_idf = []
     index = 0
@@ -132,28 +74,12 @@ def comp_tfidf_forall(documents , query):
         index += 1
     df.fillna(0 , axis=1, inplace=True)
     return tf_idf , df
-            
-documents = [r1]
-tf_idf , df = comp_tfidf_forall(documents , jd)
-#print(df)
-
-
-# In[35]:
-
-
 def comp_query_tf(query):
     query_norm_tf = {}
     tokens = query.split()
     for word in tokens:
         query_norm_tf[word] = termFreq(word , query)
     return query_norm_tf
-query_norm_tf = comp_query_tf(jd)
-#print(query_norm_tf)
-
-
-# In[36]:
-
-
 def comp_query_idf(query):
     idf_dict_qry = {}
     sentence = query.split()
@@ -161,26 +87,12 @@ def comp_query_idf(query):
     for word in sentence:
         idf_dict_qry[word] = invDocFreq(word ,documents)
     return idf_dict_qry
-idf_dict_qry = comp_query_idf(jd)
-#print(idf_dict_qry)
-
-
-# In[37]:
-
-
 def compquery_tfidf(query):
     tfidf_dict_qry = {}
     sentence = query.split()
     for word in sentence:
         tfidf_dict_qry[word] = query_norm_tf[word] * idf_dict_qry[word]
     return tfidf_dict_qry
-tfidf_dict_qry = compquery_tfidf(jd)
-#print(tfidf_dict_qry)
-
-
-# In[38]:
-
-
 def cosine_similarity(tfidf_dict_qry, df , query , doc_num):
     dot_product = 0
     qry_mod = 0
@@ -209,31 +121,78 @@ def flatten(lis):
                 yield x
         else:        
              yield item
-
-
-# In[39]:
-
-
 def rank_simil(data):
     cos_sim =[]
     for doc_num in range(0 , len(data)):
         cos_sim.append(cosine_similarity(tfidf_dict_qry, df , jd , doc_num).tolist())
     return cos_sim
-similarity_docs = rank_simil(r1)
-result=list(flatten(similarity_docs))
-#print(result)
 
 
-# In[40]:
+# In[33]:
+import json
 
 
-for i in cand:
-    res=i
-#print(res)
-print('helllo')
-res["resume_score"] = result[0]
-print(res)
+#####Uncomment below
+cand = sys.argv[1]
+JD = sys.argv[2]
+cand = json.loads(cand)
+
+# JD=' i need need a machine learning team leader who has supermen powers';
+# cand= [{'skills': 'machine learning', 'experience': 'I am the best java resource', 'user_id': '123'},
+#       {'skills': 'machine learning leader team supermen', 'experience': 'I am the best java resource', 
+#        'user_id': '234'},
+#       {'skills': 'java', 'experience': 'I am the best java resource', 
+#        'user_id': '345'}];
 lis=[]
-lis.append(res)
+for i in cand:
+    skills=i.get('skills')
+    
+    exp=i.get('experience')
+    resume= skills+' '+exp;
+    resume=re.sub(r'[^A-Za-z0-9 ]+', '', resume)
+    resume=' '.join(dict.fromkeys(resume.split()))
+    JD=' '.join(dict.fromkeys(JD.split()))
+    Y_set = [lemmatizer.lemmatize(w).lower() for w in resume.split() if not w in sw]
+    # function to predict n most similar words using word2vec model
+    r1 = [item.replace("\n", "") for item in Y_set]
+    r1=' '.join(r1)
+
+    X_set = [lemmatizer.lemmatize(w).lower() for w in JD.split() if not w in sw]
+    jd = [item.replace("\n", "") for item in X_set]
+    jd=' '.join(jd)
+    #print(jd)
+    #Normalized Term Frequency
+
+
+    tf_doc = normalizedtf([r1])
+
+
+    idf_dict = comp_idf([r1])
+
+    comp_idf([r1])
+    # tf-idf score across all docs 
+
+
+    documents = [r1]
+    tf_idf , df = comp_tfidf_forall(documents , jd)
+    #print(df)
+
+    query_norm_tf = comp_query_tf(jd)
+    #print(query_norm_tf)
+    idf_dict_qry = comp_query_idf(jd)
+
+    #print(idf_dict_qry)
+
+    tfidf_dict_qry = compquery_tfidf(jd)
+    #print(tfidf_dict_qry)
+
+    similarity_docs = rank_simil(r1)
+    result=list(flatten(similarity_docs))
+    result = [0 if x != x else x for x in result]
+    #print(result)
+    #print(result)
+    i["resume_score"] = result[0]
+    
+    lis.append(i)
 print(lis)
 
