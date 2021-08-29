@@ -72,6 +72,7 @@ const CompanyJobAddModal = (props) => {
                 </div>
                 <div className="form-group mt-2 w-70">
                   <textarea
+                    style={{height:100}}
                     placeholder="Description *"
                     value={values.job_description}
                     name="job_description"

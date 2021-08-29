@@ -24,6 +24,21 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
     <div className="container">
       <div className="">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="pills-home-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-home"
+              type="button"
+              role="tab"
+              aria-controls="pills-home"
+              aria-selected="true"
+              onClick={() => onFilterData("all")}
+            >
+              Recomendations
+            </button>
+          </li>
           <li class="nav-item" role="presentation">
             <button
               class="nav-link active"
@@ -36,7 +51,7 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
               aria-selected="true"
               onClick={() => onFilterData("all")}
             >
-              Candidates
+              Applications
             </button>
           </li>
           <li class="nav-item" role="presentation">
