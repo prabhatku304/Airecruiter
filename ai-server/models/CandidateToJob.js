@@ -15,7 +15,7 @@ const CandidateToJobSchema = new mongoose.Schema(
     },
 
     resume_score: {
-      type: Number,
+      type: String,
     },
     personality_score: {
       type: Object,
