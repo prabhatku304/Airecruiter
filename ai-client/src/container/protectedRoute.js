@@ -15,6 +15,7 @@ import { PageSpinner } from "../component/UserProfile/PageSpinner";
 import { UserProfilePage } from "../component/UserProfile/UserProfilePage";
 import { McqTestPage } from "../component/TestPage/McqTestPage/McqTestPage";
 import { DashboardPage } from "../component/DashboardPage/DashboardPage";
+import PersonalityTest from "../component/TestPage/PersonalityTest/PersonalityTest";
 
 const ProtectedRoute = ({ accessType, type }) => {
   const history = useHistory();
@@ -49,6 +50,8 @@ const ProtectedRoute = ({ accessType, type }) => {
 
       case routeType.TECHNICAL_TEST_VIEW:
         return <McqTestPage />;
+      case routeType.PERSONALITY_TEST_VIEW:
+        return <PersonalityTest />;
     }
   };
   if (isAuthenticated && user) {

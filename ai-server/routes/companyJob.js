@@ -8,6 +8,7 @@ const {
   getCandidateAppliedJob,
   shortlistCandidate,
   getJobApplied,
+  selectCandidate,
 } = require("../handlers/job");
 const router = express.Router();
 
@@ -40,6 +41,11 @@ router.get("/company/applied-job", getCandidateAppliedJob);
  * Shortlist the candidate
  */
 router.put("/job-shortlist", shortlistCandidate);
+/**
+ * Select or reject the candidate
+ */
+
+router.put("/job-select", selectCandidate);
 /**
  * Get jobs which candidate applied
  */

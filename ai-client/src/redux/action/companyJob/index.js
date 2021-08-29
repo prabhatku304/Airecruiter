@@ -118,6 +118,25 @@ const jobShortlistingAction = (data, callback) => {
       });
   };
 };
+const jobSelectAction = (data, callback) => {
+  const url = "/job-select";
+  return (dispatch) => {
+    dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, true));
+
+    apiClient({ method: "PUT", url: url, data })
+      .then((res) => {
+        dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, false));
+        if (callback) {
+          callback();
+        }
+        toastAction.success("Updated Successfully ");
+      })
+      .catch((err) => {
+        dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, false));
+        toastAction.error(err);
+      });
+  };
+};
 export {
   companyJobAddAction,
   companyJobGetAction,
@@ -125,4 +144,5 @@ export {
   companyJobApplyAction,
   jobAppliedCandidateAction,
   jobShortlistingAction,
+  jobSelectAction,
 };

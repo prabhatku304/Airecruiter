@@ -14,6 +14,12 @@ export const technicalTestRoute = (isParams, jobId, userId) => {
   }
   return "/technical-test/:jobId/:userId";
 };
+export const personalityTestRoute = (isParams, jobId, userId) => {
+  if (isParams) {
+    return `/personality-test/${jobId}/${userId}`;
+  }
+  return "/personality-test/:jobId/:userId";
+};
 export const jobDetailRoute = (isParams, jobId) => {
   if (isParams) {
     return `/job/${jobId}`;

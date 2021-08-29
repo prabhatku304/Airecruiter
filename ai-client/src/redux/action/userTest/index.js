@@ -27,15 +27,22 @@ const technicalTestSubmitAction = (data, callback) => {
       });
   };
 };
-const personalityTestSubmitAction = (data) => {
+
+const personalityTestSubmitAction = (data, callback) => {
   const url = "/personality-test";
   return (dispatch) => {
     dispatch(reduxPayload(PERSONALITY_TEST_SUBMIT_PENDING, true));
     apiClient({ method: "PUT", url: url, data })
       .then((res) => {
         dispatch(reduxPayload(PERSONALITY_TEST_SUBMIT_PENDING, false));
+        toastAction.success("Test Successfully Submitted");
+        if (callback) {
+          callback();
+        }
       })
       .catch((err) => {
+        toastAction.error(err);
+
         dispatch(reduxPayload(PERSONALITY_TEST_SUBMIT_PENDING, false));
       });
   };
