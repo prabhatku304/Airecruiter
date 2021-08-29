@@ -4,11 +4,11 @@ const JobDetailComponent = ({ data, onUserApplyJob }) => {
   return (
     <div className="">
       <div className="">
-        <img
+        {/* <img
           src="https://beatest-blobs1.s3.ap-south-1.amazonaws.com/Activity+Outside+Banners/java+developer+banner.png"
           alt=""
           className="img-fluid"
-        />
+        /> */}
       </div>
       <div className="container">
         <div className="my-5">
