@@ -92,25 +92,24 @@ exports.candidateRecomendation = async (req, res, next) => {
     if (userProfile && userProfile.length > 0) {
       userProfile.map((res) => {
         if (res.skills && res.experience) {
-          let process = await spawn("python", [
-            "ml/resume_score.py",
-            res.skills,
-            res.experience,
-            body.job_description,
-          ]);
-          let score;
-          process.stdout.on("data", async function (data) {
-            score = data.toString();
-            selectedProfile.push({
-              resume_score: score,
-              user_id: res.user,
-            });
+          selectedProfile.push({
+            user_id: res.user,
+            skills: res.skills,
+            experience: res.experience,
           });
-          console.log(userProfile);
         }
       });
     }
-    console.log(userProfile);
+    let JD =
+      " i need need a machine learning team leader who has supermen powers";
+    let process = await spawn("python", ["ml/resume.py", selectedProfile, JD]);
+    process.stdout.on("data", async function (data) {
+      score = data.toString();
+      console.log(score);
+    });
+    process.stderr.on("data", function (data) {
+      console.log(data);
+    });
   } catch (err) {
     console.log(err);
     return next({
@@ -143,9 +142,13 @@ exports.getJobApplied = async (req, res, next) => {
   try {
     let user = await decodeToken(req);
     if (user) {
-      let job = await db.CandidateToJob.find({ user_id: user._id }).populate(
-        "company_job"
-      );
+      let job = await db.CandidateToJob.find({ user_id: user._id }).populate({
+        path: "company_job",
+        populate: {
+          path: "company",
+          model: "Company",
+        },
+      });
       res.send(job);
     } else {
       return next({

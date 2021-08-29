@@ -9,6 +9,7 @@ const {
   shortlistCandidate,
   getJobApplied,
   selectCandidate,
+  candidateRecomendation,
 } = require("../handlers/job");
 const router = express.Router();
 
@@ -51,4 +52,8 @@ router.put("/job-select", selectCandidate);
  */
 
 router.get("/candidate/job-applied", getJobApplied);
+/**
+ * Recomend sysem
+ */
+router.get("/candidate-rec", candidateRecomendation);
 module.exports = router;
