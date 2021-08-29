@@ -26,6 +26,8 @@ import {
   uploadResumeRoute,
   candidateProfileRoute,
   jobDetailRoute,
+  technicalTestRoute,
+  candidateDashboardRoute,
 } from "./route";
 import CompanyJobPage from "../component/CompanyPage/CompanyJobPage/CompanyJobPage";
 import { userGetAction } from "../redux/action/user";
@@ -47,7 +49,7 @@ const RouterContents = (props) => {
     <Router>
       <Switch>
         <Route exact path="/" component={Homepage} />
-        <Route exact path="/test" component={PageSpinner} />
+        <Route exact path="/test" component={McqTestPage} />
 
         {/* {props.admin.is_admin ? (
                     <>
@@ -135,6 +137,26 @@ const RouterContents = (props) => {
             component={() => (
               <ProtectedRoute
                 type={routeType.CANDIDATE_JOB_DETAIL_VIEW}
+                accessType="access"
+              />
+            )}
+          />
+          <Route
+            exact
+            path={technicalTestRoute(false)}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.TECHNICAL_TEST_VIEW}
+                accessType="access"
+              />
+            )}
+          />
+          <Route
+            exact
+            path={candidateDashboardRoute()}
+            component={() => (
+              <ProtectedRoute
+                type={routeType.CANDIDATE_DASHBOARD_VIEW}
                 accessType="access"
               />
             )}

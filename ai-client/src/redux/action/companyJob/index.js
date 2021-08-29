@@ -1,5 +1,6 @@
 import { reduxPayload } from "../base";
 import { apiClient } from "../../../service/apiClient";
+import { toastAction } from "../toastAction";
 
 const {
   getCompanyJobsApiRoute,
@@ -45,9 +46,11 @@ const companyJobAddAction = (data, callback) => {
           callback();
         }
         dispatch(reduxPayload(COMPANY_JOBS_ADD_PENDING, false));
+        toastAction.success("Job Created");
       })
       .catch((err) => {
         dispatch(reduxPayload(COMPANY_JOBS_ADD_PENDING, false));
+        toastAction.error(err);
       });
   };
 };
@@ -73,9 +76,11 @@ const companyJobApplyAction = (data) => {
     apiClient({ method: "POST", url: url, data })
       .then((res) => {
         dispatch(reduxPayload(COMPANY_JOBS_APPLY_PENDING, false));
+        toastAction.success("Applied Successfully");
       })
       .catch((err) => {
         dispatch(reduxPayload(COMPANY_JOBS_APPLY_PENDING, false));
+        toastAction.error(err);
       });
   };
 };
@@ -105,9 +110,11 @@ const jobShortlistingAction = (data, callback) => {
         if (callback) {
           callback();
         }
+        toastAction.success("Updated Successfully ");
       })
       .catch((err) => {
         dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, false));
+        toastAction.error(err);
       });
   };
 };

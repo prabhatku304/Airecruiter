@@ -8,6 +8,12 @@ export const companyJobDetailRoute = (isParams, jobId) => {
   }
   return "/company/job/:jobId";
 };
+export const technicalTestRoute = (isParams, jobId, userId) => {
+  if (isParams) {
+    return `/technical-test/${jobId}/${userId}`;
+  }
+  return "/technical-test/:jobId/:userId";
+};
 export const jobDetailRoute = (isParams, jobId) => {
   if (isParams) {
     return `/job/${jobId}`;
@@ -19,4 +25,7 @@ export const uploadResumeRoute = () => {
 };
 export const candidateProfileRoute = () => {
   return "/profile";
+};
+export const candidateDashboardRoute = () => {
+  return "/dashboard";
 };

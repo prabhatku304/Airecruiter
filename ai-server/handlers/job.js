@@ -2,7 +2,7 @@ const db = require("../models");
 const { decodeToken } = require("../lib/common_util");
 require("dotenv").load;
 const nodemailer = require("nodemailer");
-console.log(process.env.PASS);
+
 const smtpNodemailer = nodemailer.createTransport({
   service: "Gmail",
   auth: {
@@ -86,6 +86,26 @@ exports.getCandidateAppliedJob = async (req, res, next) => {
   }
 };
 
+exports.getJobApplied = async (req, res, next) => {
+  try {
+    let user = await decodeToken(req);
+    if (user) {
+      let job = await db.CandidateToJob.find({ user_id: user._id }).populate(
+        "company_job"
+      );
+      res.send(job);
+    } else {
+      return next({
+        message: "Aunauthorization",
+        status: 401,
+      });
+    }
+  } catch (err) {
+    return next({
+      message: err.message || "Something went wrong",
+    });
+  }
+};
 exports.getCompanyJob = async (req, res, next) => {
   try {
     let user = await decodeToken(req);

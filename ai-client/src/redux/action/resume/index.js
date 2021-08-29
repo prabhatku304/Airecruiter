@@ -1,3 +1,5 @@
+import { toastAction } from "../toastAction";
+
 const { apiClient } = require("../../../service/apiClient");
 const { reduxPayload } = require("../base");
 const { RESUME_UPLOAD_PENDING } = require("./type");
@@ -13,9 +15,12 @@ const uploadResumeAction = (data, callback) => {
         if (callback) {
           callback();
         }
+        toastAction.success("Successfully Uploaded");
       })
       .catch((err) => {
+        console.log(err);
         dispatch(reduxPayload(RESUME_UPLOAD_PENDING, false));
+        toastAction.error(err);
       });
   };
 };
