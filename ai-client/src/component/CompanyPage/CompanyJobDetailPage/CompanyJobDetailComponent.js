@@ -36,7 +36,22 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
               aria-selected="true"
               onClick={() => onFilterData("all")}
             >
-              Candidates
+              Recommendations
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="pills-profile-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-profile"
+              type="button"
+              role="tab"
+              aria-controls="pills-profile"
+              aria-selected="false"
+              onClick={() => onFilterData("all")}
+            >
+              Applications
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -76,6 +91,14 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
+          >
+            <CandidateCard data={data} setData={setData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
           >
             <CandidateCard data={data} setData={setData} />
           </div>
