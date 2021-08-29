@@ -20,6 +20,7 @@ const {
   COMPANY_JOBS_APPLY_PENDING,
   COMPANY_JOB_APPLIED,
   JOB_SHORTLISTING_PENDING,
+  RECOMMEND_CANDIDATE,
 } = require("./type");
 
 const companyJobGetAction = (query) => {
@@ -100,6 +101,16 @@ const jobAppliedCandidateAction = (query) => {
       });
   };
 };
+const recommendCandidateGetAction = (query) => {
+  const url = "/candidate-rec";
+  return (dispatch) => {
+    apiClient({ method: "GET", url: url })
+      .then((res) => {
+        dispatch(reduxPayload(RECOMMEND_CANDIDATE, res.data));
+      })
+      .catch((err) => {});
+  };
+};
 const jobShortlistingAction = (data, callback) => {
   const url = jobShortlistApiRoute();
   return (dispatch) => {
@@ -146,4 +157,5 @@ export {
   jobAppliedCandidateAction,
   jobShortlistingAction,
   jobSelectAction,
+  recommendCandidateGetAction,
 };

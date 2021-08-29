@@ -6,10 +6,12 @@ import {
   COMPANY_JOB_DETAIL,
   COMPANY_JOB_APPLIED,
   JOB_SHORTLISTING_PENDING,
+  RECOMMEND_CANDIDATE,
 } from "../action/companyJob/type";
 
 const DEFAULT_STATE = {
   companyJob: null,
+  recommendCandidate: null,
   companyJobDetail: null,
   jobAppliedCandidate: null,
   isAuthenticated: null,
@@ -29,6 +31,11 @@ export const companyJobReducer = (
       return {
         ...state,
         companyJob: payload,
+      };
+    case RECOMMEND_CANDIDATE:
+      return {
+        ...state,
+        recommendCandidate: payload,
       };
     case COMPANY_JOB_APPLIED:
       return {
