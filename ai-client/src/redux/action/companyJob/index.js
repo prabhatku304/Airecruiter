@@ -1,6 +1,7 @@
 import { reduxPayload } from "../base";
 import { apiClient } from "../../../service/apiClient";
 import { toastAction } from "../toastAction";
+import { JOB_APPLY_PENDING } from "../candidateJob/type";
 
 const {
   getCompanyJobsApiRoute,
@@ -72,14 +73,14 @@ const companyJobDetailGetAction = (jobId) => {
 const companyJobApplyAction = (data) => {
   const url = applyJobApiRoute();
   return (dispatch) => {
-    dispatch(reduxPayload(COMPANY_JOBS_APPLY_PENDING, true));
+    dispatch(reduxPayload(JOB_APPLY_PENDING, true));
     apiClient({ method: "POST", url: url, data })
       .then((res) => {
-        dispatch(reduxPayload(COMPANY_JOBS_APPLY_PENDING, false));
+        dispatch(reduxPayload(JOB_APPLY_PENDING, false));
         toastAction.success("Applied Successfully");
       })
       .catch((err) => {
-        dispatch(reduxPayload(COMPANY_JOBS_APPLY_PENDING, false));
+        dispatch(reduxPayload(JOB_APPLY_PENDING, false));
         toastAction.error(err);
       });
   };

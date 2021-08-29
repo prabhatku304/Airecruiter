@@ -6,11 +6,15 @@ import {
   companyJobDetailGetAction,
   companyJobApplyAction,
 } from "../../redux/action/companyJob";
+import { PageSpinner } from "../UserProfile/PageSpinner";
 
 const JobDetailContainer = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const jobData = useSelector((state) => state.companyJob.companyJobDetail);
+  const isApplyPending = useSelector(
+    (state) => state.candidateJob.isCandidateAppliedJobPending
+  );
   const onGetJobDetail = async () => {
     if (params && params.jobId) {
       await dispatch(companyJobDetailGetAction(params.jobId));
@@ -25,10 +29,16 @@ const JobDetailContainer = () => {
       await dispatch(companyJobApplyAction(data));
     }
   };
+  console.log(isApplyPending);
   useEffect(() => {
     onGetJobDetail();
   }, []);
-  return <JobDetailComponent data={jobData} onUserApplyJob={onUserApplyJob} />;
+  return (
+    <>
+      <PageSpinner isLoading={isApplyPending} />
+      <JobDetailComponent data={jobData} onUserApplyJob={onUserApplyJob} />
+    </>
+  );
 };
 
 export default JobDetailContainer;
