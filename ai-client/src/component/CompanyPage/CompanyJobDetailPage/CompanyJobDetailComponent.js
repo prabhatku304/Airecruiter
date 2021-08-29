@@ -24,7 +24,7 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
     <div className="container">
       <div className="">
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-        <li class="nav-item" role="presentation">
+          <li class="nav-item" role="presentation">
             <button
               class="nav-link active"
               id="pills-home-tab"
@@ -36,19 +36,19 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
               aria-selected="true"
               onClick={() => onFilterData("all")}
             >
-              Recomendations
+              Recommendations
             </button>
           </li>
           <li class="nav-item" role="presentation">
             <button
-              class="nav-link active"
-              id="pills-home-tab"
+              class="nav-link"
+              id="pills-profile-tab"
               data-bs-toggle="pill"
-              data-bs-target="#pills-home"
+              data-bs-target="#pills-profile"
               type="button"
               role="tab"
-              aria-controls="pills-home"
-              aria-selected="true"
+              aria-controls="pills-profile"
+              aria-selected="false"
               onClick={() => onFilterData("all")}
             >
               Applications
@@ -91,6 +91,14 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
             id="pills-home"
             role="tabpanel"
             aria-labelledby="pills-home-tab"
+          >
+            <CandidateCard data={data} setData={setData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
           >
             <CandidateCard data={data} setData={setData} />
           </div>

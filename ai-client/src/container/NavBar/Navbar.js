@@ -53,7 +53,7 @@ const NavBar = (props) => {
             {user && user.user_type && user.user_type === "CANDIDATE" && (
               <>
                 <div className="mx-3">
-                  <a href="/company">Dashboard</a>
+                  <a href="/dashboard">Dashboard</a>
                 </div>
                 <div className="mx-3">
                   <a href="/company">Company</a>
