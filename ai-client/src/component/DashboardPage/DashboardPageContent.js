@@ -24,21 +24,25 @@ const DashboardPageContent = (props) => {
             <>
               <div className="card">
                 <div className="company-img p-0 m-0">
-                  <img
-                    src={
-                      res.url ||
-                      "https://si.wsj.net/public/resources/images/BN-JP042_melros_P_20150728024345.jpg"
-                    }
+                  {/* <img
+                    src=''
                     alt=""
                     className="img-fluid"
-                  />
+                  /> */}
                 </div>
                 <div className="container">
                   <div className="">
-                    <h1>{res.job_title}</h1>
+                    <h1>{res.company_job && res.company_job.job_title}</h1>
                   </div>
                   <div className="">
-                    <p>{res.job_description}</p>
+                    <p>{res.company_job && res.company_job.job_description}</p>
+                  </div>
+                  <div className="">
+                    <p>
+                      {res.company_job &&
+                        res.company_job.company &&
+                        res.company_job.company.company_name}
+                    </p>
                   </div>
                   {!props.isApplied && !props.isSelected && (
                     <div className="d-flex">
