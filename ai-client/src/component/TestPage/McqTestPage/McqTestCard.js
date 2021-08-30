@@ -189,9 +189,9 @@ const McqTestCard = (props) => {
         </div>
 
         <div className="d-flex q-input p-3 mt-5">
-          <div className="">
+          <div className="d-flex flex-column">
             {" "}
-            <span>a</span>
+            <span>a. {data[counter].answers[0]} </span>
             <input
               type="radio"
               name="option"
@@ -200,9 +200,9 @@ const McqTestCard = (props) => {
               className="q-option ml-2"
             />
           </div>
-          <div className="">
+          <div className="d-flex flex-column">
             {" "}
-            <span>b</span>
+            <span>b. {data[counter].answers[1]}</span>
             <input
               type="radio"
               name="option"
@@ -211,9 +211,9 @@ const McqTestCard = (props) => {
               className="q-option ml-2"
             />
           </div>
-          <div className="">
+          <div className="d-flex flex-column">
             {" "}
-            <span>c</span>
+            <span>c. {data[counter].answers[2]}</span>
             <input
               type="radio"
               name="option"
@@ -222,9 +222,9 @@ const McqTestCard = (props) => {
               className="q-option ml-2"
             />
           </div>
-          <div className="">
+          <div className="d-flex flex-column">
             {" "}
-            <span>d</span>
+            <div>d. {data[counter].answers[3]}</div>
             <input
               type="radio"
               name="option"
