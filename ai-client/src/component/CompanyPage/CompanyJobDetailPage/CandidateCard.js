@@ -45,7 +45,10 @@ const CandidateCard = ({ data, setData, isShortlisted, isSelected }) => {
                   {ele && ele.technical_score ? ele.technical_score : "N/A"}
                 </td>
                 <td>
-                  {ele && ele.personaity_score ? ele.personaity_score : "N/A"}
+                  {ele &&
+                    ele.personality_score &&
+                    ele.personality_score.length > 0 &&
+                    ele.personality_score[0].code}
                 </td>
                 {!isSelected && !isShortlisted && (
                   <td>

@@ -15,6 +15,7 @@ const CompanyJobDetailContainer = (props) => {
   const appliedData = useSelector(
     (state) => state.companyJob.jobAppliedCandidate
   );
+  const user = useSelector((state) => state.user.user);
   const onGetJobAppliedCandidate = async () => {
     if (params && params.jobId) {
       const data = {
@@ -29,7 +30,8 @@ const CompanyJobDetailContainer = (props) => {
   };
   useEffect(() => {
     onGetJobAppliedCandidate();
-  }, []);
+  }, [user]);
+  console.log(recData);
   return (
     <section>
       <CompanyJobDetailComponent

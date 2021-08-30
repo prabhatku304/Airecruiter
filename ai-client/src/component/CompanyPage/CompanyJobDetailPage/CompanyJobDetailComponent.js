@@ -10,15 +10,17 @@ const CompanyJobDetailComponent = ({
   const [data, setData] = useState([]);
   const [recCand, setRecCand] = useState([]);
   const onFilterData = (type) => {
-    let tempData = [...appliedData];
-    if (type === "shortlisted") {
-      tempData = tempData.filter((ele) => ele.is_shortlisted === true);
-    } else if (type === "selected") {
-      tempData = tempData.filter((ele) => ele.is_selected === true);
-    } else {
-      tempData = tempData;
+    if (appliedData) {
+      let tempData = [...appliedData];
+      if (type === "shortlisted") {
+        tempData = tempData.filter((ele) => ele.is_shortlisted === true);
+      } else if (type === "selected") {
+        tempData = tempData.filter((ele) => ele.is_selected === true);
+      } else {
+        tempData = tempData;
+      }
+      setData(tempData);
     }
-    setData(tempData);
   };
   useEffect(() => {
     setData(appliedData);

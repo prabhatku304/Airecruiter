@@ -27,7 +27,6 @@ const CandidateScoreModal = (props) => {
     ],
     labels: ["Resume Score", "Technical Score", "Personality Score"],
   };
-  console.log(props.data.technical_score);
   return (
     <Modal
       isOpen={props.isModal}
@@ -40,7 +39,35 @@ const CandidateScoreModal = (props) => {
       <div className="d-flex flex-fill">
         <div className="row d-flex flex-fill">
           <div className="col-6">
-            {props.data && <Polar data={data} height={200} />}
+            {/* {props.data && <Polar data={data} height={200} />} */}
+            <div className="p-3">
+              <div className="">
+                <h5>
+                  {props.data &&
+                    props.data.personality_score &&
+                    props.data.personality_score.length > 0 &&
+                    props.data.personality_score[0].code}
+                </h5>
+                <p>
+                  {props.data &&
+                    props.data.personality_score &&
+                    props.data.personality_score.length > 0 &&
+                    props.data.personality_score[0].title}
+                </p>
+              </div>
+              <div className="">
+                <h5>Professional </h5>
+                <ul>
+                  {props.data &&
+                    props.data.personality_score &&
+                    props.data.personality_score.length > 0 &&
+                    props.data.personality_score[0].professional_field &&
+                    props.data.personality_score[0].professional_field.map(
+                      (ele) => <li>{ele}</li>
+                    )}
+                </ul>
+              </div>
+            </div>
           </div>
           <div className="col-6 d-flex" style={{ backgroundColor: "#e4e3e3" }}>
             <div className="d-flex justify-content-evenly flex-column">
