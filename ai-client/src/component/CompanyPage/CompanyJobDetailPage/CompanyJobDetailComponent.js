@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import CandidateCard from "./CandidateCard";
+import { useParams } from "react-router";
 
 const CompanyJobDetailComponent = ({
   appliedData,
   onJobShortlisting,
   recData,
+  onShortlistRecCandidate,
 }) => {
+  const params = useParams();
+
   const [tab, setTab] = useState("rec");
   const [data, setData] = useState([]);
   const [recCand, setRecCand] = useState([]);
@@ -26,14 +30,28 @@ const CompanyJobDetailComponent = ({
     setData(appliedData);
   }, [appliedData]);
   useEffect(() => {
-    setRecCand(recData);
+    if (recData) {
+      setRecCand(recData);
+    }
   }, [recData]);
   const onShortlistedCandidate = () => {
-    if (tab === "rec") {
-      onJobShortlisting(recCand);
-    } else {
-      onJobShortlisting(data);
-    }
+    onJobShortlisting(data);
+  };
+  const onShortlistRecCandidates = () => {
+    let tempData = recCand.filter((ele) => ele.is_shortlisted === false);
+    tempData = tempData.map((ele) => {
+      return {
+        user_id: ele.user_id,
+        resume_score: ele.resume_score,
+        personality_score: ele.personality_score,
+        technical_score: ele.technical_score,
+      };
+    });
+    const body = {
+      data: tempData,
+      jobId: params.jobId,
+    };
+    onShortlistRecCandidate(body);
   };
   return (
     <div className="container">
@@ -113,7 +131,11 @@ const CompanyJobDetailComponent = ({
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <CandidateCard data={recCand} setData={setRecCand} />
+            <CandidateCard
+              data={recCand}
+              setData={setRecCand}
+              isSelected={true}
+            />
           </div>
           <div
             class="tab-pane fade"

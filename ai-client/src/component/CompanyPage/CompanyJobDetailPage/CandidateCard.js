@@ -3,7 +3,7 @@ import { CandidateScoreModal } from "./CandidateScoreModal";
 import { useDispatch } from "react-redux";
 import { jobSelectAction } from "../../../redux/action/companyJob";
 
-const CandidateCard = ({ data, setData, isShortlisted, isSelected }) => {
+const CandidateCard = ({ data, setData, isShortlisted, isSelected, isRec }) => {
   const dispatch = useDispatch();
   const [isModal, setModal] = useState(false);
   const onToggleModal = () => {
@@ -52,16 +52,28 @@ const CandidateCard = ({ data, setData, isShortlisted, isSelected }) => {
                 </td>
                 {!isSelected && !isShortlisted && (
                   <td>
-                    <input
-                      checked={ele.is_shortlisted ? true : false}
-                      type="checkbox"
-                      // value={ele.is_shortlisted}
-                      onChange={() => {
-                        let tempData = [...data];
-                        tempData[i].is_shortlisted = !ele.is_shortlisted;
-                        setData(tempData);
-                      }}
-                    />
+                    {isRec ? (
+                      <input
+                        type="checkbox"
+                        // value={ele.is_shortlisted}
+                        onChange={() => {
+                          let tempData = [...data];
+                          tempData[i].is_shortlisted = !ele.is_shortlisted;
+                          setData(tempData);
+                        }}
+                      />
+                    ) : (
+                      <input
+                        checked={ele.is_shortlisted ? true : false}
+                        type="checkbox"
+                        // value={ele.is_shortlisted}
+                        onChange={() => {
+                          let tempData = [...data];
+                          tempData[i].is_shortlisted = !ele.is_shortlisted;
+                          setData(tempData);
+                        }}
+                      />
+                    )}
                   </td>
                 )}
                 {isSelected ||
