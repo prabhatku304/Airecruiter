@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CandidateCard from "./CandidateCard";
 
-const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
+const CompanyJobDetailComponent = ({
+  appliedData,
+  onJobShortlisting,
+  recData,
+}) => {
+  const [tab, setTab] = useState("rec");
   const [data, setData] = useState([]);
+  const [recCand, setRecCand] = useState([]);
   const onFilterData = (type) => {
     let tempData = [...appliedData];
     if (type === "shortlisted") {
@@ -17,8 +23,15 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
   useEffect(() => {
     setData(appliedData);
   }, [appliedData]);
+  useEffect(() => {
+    setRecCand(recData);
+  }, [recData]);
   const onShortlistedCandidate = () => {
-    onJobShortlisting(data);
+    if (tab === "rec") {
+      onJobShortlisting(recCand);
+    } else {
+      onJobShortlisting(data);
+    }
   };
   return (
     <div className="container">
@@ -34,9 +47,12 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
               role="tab"
               aria-controls="pills-home"
               aria-selected="true"
-              onClick={() => onFilterData("all")}
+              onClick={() => {
+                setTab("rec");
+                onFilterData("all");
+              }}
             >
-              Candidates
+              Recommendations
             </button>
           </li>
           <li class="nav-item" role="presentation">
@@ -48,6 +64,24 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
               type="button"
               role="tab"
               aria-controls="pills-profile"
+              aria-selected="false"
+              onClick={() => {
+                setTab("appl");
+                onFilterData("all");
+              }}
+            >
+              Applications
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="pills-profile-tab"
+              data-bs-toggle="pill"
+              data-bs-target="#pills-profile-1"
+              type="button"
+              role="tab"
+              aria-controls="pills-profile-1"
               aria-selected="false"
               onClick={() => onFilterData("shortlisted")}
             >
@@ -77,11 +111,19 @@ const CompanyJobDetailComponent = ({ appliedData, onJobShortlisting }) => {
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <CandidateCard data={data} setData={setData} />
+            <CandidateCard data={recCand} setData={setRecCand} />
           </div>
           <div
             class="tab-pane fade"
             id="pills-profile"
+            role="tabpanel"
+            aria-labelledby="pills-profile-tab"
+          >
+            <CandidateCard data={data} setData={setData} />
+          </div>
+          <div
+            class="tab-pane fade"
+            id="pills-profile-1"
             role="tabpanel"
             aria-labelledby="pills-profile-tab"
           >

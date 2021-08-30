@@ -29,7 +29,7 @@ const userRegisterAction = (data) => {
         localStorage.setItem("jwtToken", res.data.token);
         dispatch(reduxPayload(USER_LOGIN, res.data));
         dispatch(reduxPayload(USER_REGISTER_PENDING, false));
-        toastAction.success(`Hi ${res.data.name}`);
+        toastAction.success(`Hi ${res.data.name? res.data.name:''}`);
       })
       .catch((err) => {
         toastAction.error(err);
@@ -47,7 +47,7 @@ const userLoginAction = (data) => {
         localStorage.setItem("jwtToken", res.data.token);
         dispatch(reduxPayload(USER_LOGIN, res.data));
         dispatch(reduxPayload(USER_LOGIN_PENDING, false));
-        toastAction.success(`Hi ${res.data.name}`);
+        toastAction.success(`Hi ${res.data.name? res.data.name:''}`);
       })
       .catch((err) => {
         toastAction.error(err);
