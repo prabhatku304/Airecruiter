@@ -106,6 +106,7 @@ const recommendCandidateGetAction = (query) => {
   return (dispatch) => {
     apiClient({ method: "GET", url: url })
       .then((res) => {
+        console.log(res.data);
         dispatch(reduxPayload(RECOMMEND_CANDIDATE, res.data));
       })
       .catch((err) => {});
@@ -130,6 +131,28 @@ const jobShortlistingAction = (data, callback) => {
       });
   };
 };
+
+const candidateShortListAction = (data, callback) => {
+  const url = "/invite-candidate";
+  return (dispatch) => {
+    dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, true));
+
+    apiClient({ method: "POST", url: url, data })
+      .then((res) => {
+        dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, false));
+        if (callback) {
+          callback();
+        }
+        toastAction.success("Updated Successfully ");
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(reduxPayload(JOB_SHORTLISTING_PENDING, false));
+        toastAction.error(err);
+      });
+  };
+};
+
 const jobSelectAction = (data, callback) => {
   const url = "/job-select";
   return (dispatch) => {
@@ -158,4 +181,5 @@ export {
   jobShortlistingAction,
   jobSelectAction,
   recommendCandidateGetAction,
+  candidateShortListAction,
 };

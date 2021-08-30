@@ -134,6 +134,42 @@ exports.candidateRecomendation = async (req, res, next) => {
     });
   }
 };
+exports.shortListRecomendation = async (req, res, next) => {
+  try {
+    let user = await decodeToken(req);
+    if (user) {
+      let { body } = req;
+      if (body.data) {
+        body.data.map(async (ele) => {
+          let job = await db.CandidateToJob.findOne({
+            $and: [{ user_id: ele.user_id }, { company_job: body.jobId }],
+          });
+          if (!job) {
+            job = await db.CandidateToJob.create({
+              user_id: ele.user_id,
+              is_shortlisted: true,
+              resume_score: ele.resume_score,
+              personality_score: ele.personality_score,
+              technical_score: ele.technical_score,
+              company_job: body.jobId,
+            });
+            job.save();
+          }
+        });
+      }
+      res.status(200).json({ message: "done" });
+    } else {
+      return next({
+        message: "unauthorized",
+        status: 401,
+      });
+    }
+  } catch (err) {
+    return next({
+      message: err.message || "Something went wrong",
+    });
+  }
+};
 exports.getCandidateAppliedJob = async (req, res, next) => {
   try {
     let user = await decodeToken(req);
