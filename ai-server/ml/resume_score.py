@@ -26,6 +26,7 @@ sw = stopwords.words('english')
 skills = sys.argv[1]
 exp = sys.argv[2]
 JD = sys.argv[3]
+
 # skills='Machine Learning with Python learning test supermen';
 # exp ='Issue Handling of the bank clients is too much hard to regarding their account, i am a team leader'; 
 #JD=' i need need a machine learning team leader who has supermen powers';

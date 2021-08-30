@@ -61,6 +61,7 @@ exports.applyJob = async (req, res, next) => {
       let score;
       process.stdout.on("data", async function (data) {
         score = data.toString();
+        console.log(score);
         body.resume_score = score;
         job = await db.CandidateToJob.create(body);
         await job.save();

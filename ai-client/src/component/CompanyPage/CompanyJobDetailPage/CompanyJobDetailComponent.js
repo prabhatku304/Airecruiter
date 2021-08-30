@@ -29,16 +29,11 @@ const CompanyJobDetailComponent = ({
   }, [appliedData]);
   useEffect(() => {
     if (recData) {
-      let tempData = recData.filter((ele) => ele.company_job !== params.jobId);
-      setRecCand(tempData);
+      setRecCand(recData);
     }
   }, [recData]);
   const onShortlistedCandidate = () => {
-    if (tab === "rec") {
-      onShortlistRecCandidates();
-    } else {
-      onJobShortlisting(data);
-    }
+    onJobShortlisting(data);
   };
   const onShortlistRecCandidates = () => {
     let tempData = recCand.filter((ele) => ele.is_shortlisted === false);
@@ -134,7 +129,11 @@ const CompanyJobDetailComponent = ({
             role="tabpanel"
             aria-labelledby="pills-home-tab"
           >
-            <CandidateCard data={recCand} setData={setRecCand} isRec={true} />
+            <CandidateCard
+              data={recCand}
+              setData={setRecCand}
+              isSelected={true}
+            />
           </div>
           <div
             class="tab-pane fade"
