@@ -119,7 +119,6 @@ exports.applyJob = async (req, res, next) => {
 exports.candidateRecomendation = async (req, res, next) => {
   try {
     let user = await decodeToken(req);
-    let { query } = req;
     if (user) {
       let job = await db.CandidateToJob.find({}).populate("user_id");
       res.send(job);
